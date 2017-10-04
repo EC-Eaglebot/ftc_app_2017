@@ -93,17 +93,21 @@ public class SampleBot_TeleOp extends OpMode{
      */
     @Override
     public void loop() {
-        double left;
-        double right;
+        double fRight;
+        double bRight;
+        double fLeft;
+        double bLeft;
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        left = -gamepad1.left_stick_y;
-        right = -gamepad1.right_stick_y;
+        fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
+        bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
+        fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
+        bLeft = gamepad1.left_stick_y - gamepad1.right_stick_x + gamepad1.left_stick_x;
 
-        robot.frontleftDrive.setPower(left);
-        robot.backleftDrive.setPower(left);
-        robot.frontrightDrive.setPower(right);
-        robot.backrightDrive.setPower(right);
+        robot.frontleftDrive.setPower(fLeft);
+        robot.frontrightDrive.setPower(fRight);
+        robot.backleftDrive.setPower(bLeft);
+        robot.backrightDrive.setPower(bRight);
 
         // Use gamepad left & right Bumpers to open and close the claw
         //if (gamepad1.right_bumper)
@@ -126,8 +130,10 @@ public class SampleBot_TeleOp extends OpMode{
 
         // Send telemetry message to signify robot running;
         //telemetry.addData("claw",  "Offset = %.2f", clawOffset);
-        telemetry.addData("left",  "%.2f", left);
-        telemetry.addData("right", "%.2f", right);
+        telemetry.addData("front left",  "%.2f", fLeft);
+        telemetry.addData("front right", "%.2f", fRight);
+        telemetry.addData("back left",  "%.2f", bLeft);
+        telemetry.addData("back right", "%.2f", bRight);
     }
 
     /*
