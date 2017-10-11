@@ -58,10 +58,10 @@ public class HardwareSampleBot
     public DcMotor  backleftDrive   = null;
     public DcMotor  backrightDrive  = null;
     //public DcMotor  leftArm     = null;
-    //public Servo    leftClaw    = null;
-    //public Servo    rightClaw   = null;
+    public Servo    leftClaw    = null;
+    public Servo    rightClaw   = null;
 
-    //public static final double MID_SERVO       =  0.5 ;
+    public static final double MID_SERVO       =  0.5 ;
     //public static final double ARM_UP_POWER    =  0.45 ;
     //public static final double ARM_DOWN_POWER  = -0.45 ;
 
@@ -106,10 +106,10 @@ public class HardwareSampleBot
         //leftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-       // leftClaw  = hwMap.get(Servo.class, "left_hand");
-        //rightClaw = hwMap.get(Servo.class, "right_hand");
-        //leftClaw.setPosition(MID_SERVO);
-        //rightClaw.setPosition(MID_SERVO);
+        leftClaw  = hwMap.get(Servo.class, "left_hand");
+        rightClaw = hwMap.get(Servo.class, "right_hand");
+        leftClaw.setPosition(MID_SERVO);
+        rightClaw.setPosition(MID_SERVO);
     }
  }
 
