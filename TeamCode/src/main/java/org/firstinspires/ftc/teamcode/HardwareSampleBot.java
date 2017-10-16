@@ -110,6 +110,24 @@ public class HardwareSampleBot
         rightClaw = hwMap.get(Servo.class, "right_hand");
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
+
+
+
+
+
     }
+    void forward(double speed) {
+        frontleftDrive.setPower(speed);
+        frontrightDrive.setPower(speed);
+        backrightDrive.setPower(speed);
+        backleftDrive.setPower(speed);
+    }
+    void stopMoving() {
+        frontleftDrive.setPower(0);
+        frontrightDrive.setPower(0);
+        backrightDrive.setPower(0);
+        backleftDrive.setPower(0);
+    }
+
  }
 
