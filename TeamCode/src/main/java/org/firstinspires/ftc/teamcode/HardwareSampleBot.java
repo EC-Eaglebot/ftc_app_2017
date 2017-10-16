@@ -122,6 +122,12 @@ public class HardwareSampleBot
         backrightDrive.setPower(speed);
         backleftDrive.setPower(speed);
     }
+    void go_in_a_circle(double speed) {
+        frontleftDrive.setPower(speed);
+        frontrightDrive.setPower(-speed);
+        backleftDrive.setPower(speed);
+        backrightDrive.setPower(-speed);
+    }
     void stopMoving() {
         frontleftDrive.setPower(0);
         frontrightDrive.setPower(0);
