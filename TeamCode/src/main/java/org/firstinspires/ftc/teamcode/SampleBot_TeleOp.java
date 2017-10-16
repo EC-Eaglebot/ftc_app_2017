@@ -120,6 +120,9 @@ public class SampleBot_TeleOp extends OpMode{
         robot.leftClaw.setPosition(robot.MID_SERVO + clawOffset);
         robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
 
+
+
+
         // Use gamepad buttons to move the arm up (Y) and down (A)
         //if (gamepad1.y)
         //    robot.leftArm.setPower(robot.ARM_UP_POWER);
@@ -134,7 +137,11 @@ public class SampleBot_TeleOp extends OpMode{
         telemetry.addData("front right", "%.2f", fRight);
         telemetry.addData("back left",  "%.2f", bLeft);
         telemetry.addData("back right", "%.2f", bRight);
+
+
+
     }
+
 
     /*
      * Code to run ONCE after the driver hits STOP
