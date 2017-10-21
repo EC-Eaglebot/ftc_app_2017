@@ -91,6 +91,4 @@ public class eaglebot_auto_Steen extends LinearOpMode {
     Update the screen for the message:      telemetry.update();
     Insert this after a robot.function:     runtime.reset();
     Determine how long the code has run:    runtime.seconds();
-
-
 */
