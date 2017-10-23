@@ -132,7 +132,7 @@ public class HardwareSampleBot
     // make the robot turn a specified degree
     void turnDegree(double degree, ElapsedTime runtime){
         double speed = frontrightDrive.getPower();
-        double endTime = (degree / speed);
+        double endTime = (degree / speed) + runtime.seconds();
         if (degree > 0) {
             frontrightDrive.setPower(-speed);
             backrightDrive.setPower(-speed);
@@ -141,15 +141,15 @@ public class HardwareSampleBot
             backleftDrive.setPower(-speed);
         }
 
-        while (runtime < endTime) {
+        while (runtime.seconds() < endTime) {
         } // let the runtime go
 
         if (degree > 0) {
-            frontrightDrive.setPower(originalSpeed);
-            backrightDrive.setPower(originalSpeed);
+            frontrightDrive.setPower(speed);
+            backrightDrive.setPower(speed);
         } else if (degree < 0) {
-            frontleftDrive.setPower(originalSpeed);
-            backleftDrive.setPower(originalSpeed);
+            frontleftDrive.setPower(speed);
+            backleftDrive.setPower(speed);
         }
     }
 
