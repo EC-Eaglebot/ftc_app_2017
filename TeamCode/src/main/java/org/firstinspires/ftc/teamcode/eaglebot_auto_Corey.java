@@ -81,7 +81,6 @@ public class eaglebot_auto_Corey extends LinearOpMode {
         sleep(1000);
     }
 }
-
 // TOOLBOX OF FUNCTIONS
 // *********************
 /*
@@ -89,11 +88,10 @@ public class eaglebot_auto_Corey extends LinearOpMode {
     Make the motors stop moving:            robot.stopMoving();
     Make the robot move forward:            robot.forward(<insert speed here>);
     Display a message to the screen:        telemetry.addData("Message","value");
-    Update the screen for the message:      telemetry.addData();
+    Update the screen for the message:      telemetry.update();
     Insert this after a robot.function:     runtime.reset();
     Determine how long the code has run:    runtime.seconds();
 
 
 */
-
 

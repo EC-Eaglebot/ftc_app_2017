@@ -46,6 +46,16 @@ public class eaglebot_auto_Jeremy extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        // When the start button is pressed, the rest of the code will execute.
+        // You want to put the actions under here. At the end of the file are
+        // functions that will allow the robot to perform certain actions.
+        // If you want a new action, talk to Cassidy, Corey, or Mr. Steen
+        // and we will give you a hand.
+        // Right now the code is executing "Eaglebot: Center Ball". You'll want
+        // to make the code between // START and // END whatever you want the
+        // robot to do.
+
+        // START
 
         robot.stopMoving();
         runtime.reset();
@@ -61,8 +71,26 @@ public class eaglebot_auto_Jeremy extends LinearOpMode {
         }
         robot.stop();
 
+        // END
+
+        // Below here is where the robot will stop and go to sleep. Make
+        // sure you have the last line above as "robot.stop();" !
+
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);
     }
 }
+// TOOLBOX OF FUNCTIONS
+// *********************
+/*
+    Totally end the robot's function:       robot.stop();
+    Make the motors stop moving:            robot.stopMoving();
+    Make the robot move forward:            robot.forward(<insert speed here>);
+    Display a message to the screen:        telemetry.addData("Message","value");
+    Update the screen for the message:      telemetry.update();
+    Insert this after a robot.function:     runtime.reset();
+    Determine how long the code has run:    runtime.seconds();
+
+
+*/

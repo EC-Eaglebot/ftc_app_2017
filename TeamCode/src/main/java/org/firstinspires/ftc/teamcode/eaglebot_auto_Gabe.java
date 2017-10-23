@@ -81,7 +81,6 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
         sleep(1000);
     }
 }
-
 // TOOLBOX OF FUNCTIONS
 // *********************
 /*
@@ -94,6 +93,7 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
     Determine how long the code has run:    runtime.seconds();
 
 
+<<<<<<< HEAD
 */
 
 void goForward(speed) {
@@ -187,3 +187,6 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
     }
 }
 
+=======
+*/
+>>>>>>> 85347df8c91ed46065536c0015634f5f4e8c6083
