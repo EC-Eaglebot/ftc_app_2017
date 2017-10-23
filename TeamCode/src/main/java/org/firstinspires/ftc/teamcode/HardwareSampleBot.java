@@ -129,6 +129,13 @@ public class HardwareSampleBot
         backleftDrive.setPower(0);
     }
 
+    void backward(double speed) {
+        frontleftDrive.setPower(-speed);
+        frontrightDrive.setPower(-speed);
+        backrightDrive.setPower(-speed);
+        backleftDrive.setPower(-speed);
+    }
+
     void turnDegree(double degree, ElapsedTime runtime){
         double speed = frontrightDrive.getPower();
         double endTime = (degree / speed);

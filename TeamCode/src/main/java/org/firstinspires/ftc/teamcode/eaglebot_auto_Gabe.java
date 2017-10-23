@@ -59,17 +59,19 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
 
         robot.stopMoving();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 8)) {
+        while (runtime.seconds() < 8) {
             telemetry.addData("Stopped", runtime.seconds());
             telemetry.update();
         }
-        robot.forward(0.5);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
+        robot.forward(10);
+        while (runtime.seconds() < 2) {
             telemetry.addData("Moving Forward", runtime.seconds());
             telemetry.update();
         }
-        robot.stop();
+        robot.turnDegree();
+        robot.stopMoving();
+
+
 
         // END
 
@@ -93,100 +95,10 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
     Determine how long the code has run:    runtime.seconds();
 
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 */
 
-void goForward(speed) {
-    frontleftDrive.setPower(speed);
-    frontrightDrive.setPower(speed);
-    backrightDrive.setPower(speed);
-    backleftDrive.setPower(speed);
-}
-
-void goBackward(speed) {
-    frontleftDrive.setPower(-speed);
-    frontrightDrive.setPower(-speed);
-    backrightDrive.setPower(-speed);
-    backleftDrive.setPower(-speed);
-}
-
-void goRight(speed) {
-    frontleftDrive.setPower(speed);
-    frontrightDrive.setPower(-speed);
-    backrightDrive.setPower(-speed);
-    backleftDrive.setPower(speed);
-}
-
-void goLeft(speed) {
-    frontleftDrive.setPower(-speed);
-    frontrightDrive.setPower(speed);
-    backrightDrive.setPower(speed);
-    backleftDrive.setPower(-speed);
-}
 
 
 
-@Autonomous(name="Eaglebot: Gauto", group="Eaglebot")
-public class eaglebot_auto_Gabe extends LinearOpMode {
-
-    /* Declare OpMode members. */
-    HardwareSampleBot     robot   = new HardwareSampleBot();
-    private ElapsedTime     runtime = new ElapsedTime();
-
-
-
-    @Override
-    public void runOpMode() {
-
-
-        /*
-         * Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
-
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Ready to run");    //
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-        // When the start button is pressed, the rest of the code will execute.
-        // You want to put the actions under here. At the end of the file are
-        // functions that will allow the robot to perform certain actions.
-        // If you want a new action, talk to Cassidy, Corey, or Mr. Steen
-        // and we will give you a hand.
-        // Right now the code is executing "Eaglebot: Center Ball". You'll want
-        // to make the code between // START and // END whatever you want the
-        // robot to do.
-
-        // START
-
-        robot.stopMoving();
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 8)) {
-            telemetry.addData("Stopped", runtime.seconds());
-            telemetry.update();
-        }
-        robot.forward(0.5);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
-            telemetry.addData("Moving Forward", runtime.seconds());
-            telemetry.update();
-        }
-        robot.stop();
-
-        // END
-
-        // Below here is where the robot will stop and go to sleep. Make
-        // sure you have the last line above as "robot.stop();" !
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-        sleep(1000);
-    }
-}
-
-=======
-*/
->>>>>>> 85347df8c91ed46065536c0015634f5f4e8c6083
