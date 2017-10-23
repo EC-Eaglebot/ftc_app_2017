@@ -166,12 +166,22 @@ public class HardwareSampleBot
         while (runtime < endTime) {
         } // let the runtime go
 
+<<<<<<< HEAD
         if (degree > 0) {
             frontrightDrive.setPower(originalSpeed);
             backrightDrive.setPower(originalSpeed);
         } else if (degree < 0) {
             frontleftDrive.setPower(originalSpeed);
             backleftDrive.setPower(originalSpeed);
+=======
+        if (degree > 0){
+            frontrightDrive.setPower(speed);
+            backrightDrive.setPower(speed);
+        }
+        else if (degree < 0){
+            frontleftDrive.setPower(speed);
+            backleftDrive.setPower(speed);
+>>>>>>> c7d4f79a3a1102f0269149b16138b4401618e145
         }
     }
 
