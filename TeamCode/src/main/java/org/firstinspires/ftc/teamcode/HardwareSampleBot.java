@@ -112,9 +112,6 @@ public class HardwareSampleBot
         rightClaw.setPosition(MID_SERVO);
 
 
-
-
-
     }
     void forward(double speed) {
         frontleftDrive.setPower(speed);
@@ -127,6 +124,8 @@ public class HardwareSampleBot
         frontrightDrive.setPower(0);
         backrightDrive.setPower(0);
         backleftDrive.setPower(0);
+        leftClaw.setPosition(MID_SERVO);
+        rightClaw.setPosition(MID_SERVO);
     }
 
  }

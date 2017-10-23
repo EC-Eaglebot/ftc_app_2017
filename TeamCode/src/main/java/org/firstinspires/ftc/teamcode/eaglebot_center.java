@@ -59,7 +59,7 @@ public class eaglebot_center extends LinearOpMode {
             telemetry.addData("Moving Forward", runtime.seconds());
             telemetry.update();
         }
-        robot.stop();
+        robot.stopMoving();
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
