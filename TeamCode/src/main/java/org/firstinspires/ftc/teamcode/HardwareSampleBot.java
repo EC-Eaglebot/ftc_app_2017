@@ -140,7 +140,7 @@ public class HardwareSampleBot
             frontleftDrive.setPower(-speed);
             backleftDrive.setPower(-speed);
         }
-        
+
         while (runtime < endTime) { }
 
         if (degree > 0){
