@@ -152,29 +152,7 @@ public class HardwareSampleBot
 
         if (degree > 0){
             frontrightDrive.setPower(speed);
-            backrightDrive.setPower(speed);    void turnDegree(double degree, ElapsedTime runtime){
-                double speed = frontrightDrive.getPower();
-                double endTime = (degree / speed);
-                if (degree > 0){
-                    frontrightDrive.setPower(-speed);
-                    backrightDrive.setPower(-speed);
-                }
-                else if (degree < 0){
-                    frontleftDrive.setPower(-speed);
-                    backleftDrive.setPower(-speed);
-                }
-
-                while (runtime < endTime) { }
-
-                if (degree > 0){
-                    frontrightDrive.setPower(speed);
-                    backrightDrive.setPower(speed);
-                }
-                else if (degree < 0){
-                    frontleftDrive.setPower(speed);
-                    backleftDrive.setPower(speed);
-                }
-            }
+            backrightDrive.setPower(speed);
         }
         else if (degree < 0){
             frontleftDrive.setPower(speed);
