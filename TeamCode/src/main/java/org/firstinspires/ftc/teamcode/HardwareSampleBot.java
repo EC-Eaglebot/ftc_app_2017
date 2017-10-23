@@ -110,70 +110,64 @@ public class HardwareSampleBot
         rightClaw = hwMap.get(Servo.class, "right_hand");
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
-
-
-
-
-
     }
+
+    // Function "forward"
+    // make robot move forward at specified speed
     void forward(double speed) {
         frontleftDrive.setPower(speed);
         frontrightDrive.setPower(speed);
         backrightDrive.setPower(speed);
         backleftDrive.setPower(speed);
     }
+    // Function "stopMoving"
+    // make the movement motors on the robot turn off
     void stopMoving() {
         frontleftDrive.setPower(0);
         frontrightDrive.setPower(0);
         backrightDrive.setPower(0);
         backleftDrive.setPower(0);
     }
-
-    void turnDegree(double degree, ElapsedTime runtime){
-        double speed = frontrightDrive.getPower();
-        double endTime = (degree / speed);
-        if (degree > 0){
-            frontrightDrive.setPower(-speed);
-            backrightDrive.setPower(-speed);
+    // Function "turnDegree"
+    // make the robot turn a specified degree
+    void turnDegree(double degree, ElapsedTime runtime) {
+        double originalSpeed = frontrightDrive.getPower();
+        double turningSpeed = 2; // 2 is just an abitrary number for now
+        double endTime = (degree / turningSpeed);
+        if (degree > 0) {
+            frontrightDrive.setPower(-turningSpeed);
+            backrightDrive.setPower(-turningSpeed);
+        } else if (degree < 0) {
+            frontleftDrive.setPower(-turningSpeed);
+            backleftDrive.setPower(-turningSpeed);
         }
-        else if (degree < 0){
-            frontleftDrive.setPower(-speed);
-            backleftDrive.setPower(-speed);
-        }
 
-        while (runtime < endTime) { }
+        while (runtime < endTime) {
+        } // let the runtime go
 
-        if (degree > 0){
-            frontrightDrive.setPower(speed);
-            backrightDrive.setPower(speed);    void turnDegree(double degree, ElapsedTime runtime){
-                double speed = frontrightDrive.getPower();
-                double endTime = (degree / speed);
-                if (degree > 0){
-                    frontrightDrive.setPower(-speed);
-                    backrightDrive.setPower(-speed);
-                }
-                else if (degree < 0){
-                    frontleftDrive.setPower(-speed);
-                    backleftDrive.setPower(-speed);
-                }
-
-                while (runtime < endTime) { }
-
-                if (degree > 0){
-                    frontrightDrive.setPower(speed);
-                    backrightDrive.setPower(speed);
-                }
-                else if (degree < 0){
-                    frontleftDrive.setPower(speed);
-                    backleftDrive.setPower(speed);
-                }
-            }
-        }
-        else if (degree < 0){
-            frontleftDrive.setPower(speed);
-            backleftDrive.setPower(speed);
+        if (degree > 0) {
+            frontrightDrive.setPower(originalSpeed);
+            backrightDrive.setPower(originalSpeed);
+        } else if (degree < 0) {
+            frontleftDrive.setPower(originalSpeed);
+            backleftDrive.setPower(originalSpeed);
         }
     }
 
+    void turnAround(ElapsedTime runtime) {
+        turnDegree(180, runtime);
+    }
 
+    void turnRight(ElapsedTime runtime){
+        turnDegree(90, runtime);
+    }
+    void turnleft(ElapsedTime runtime){
+        turnDegree(-90, runtime);
+    }
+
+    void stopAndWait(double secondsToWait, ElapsedTime runtime) {
+        stopMoving();
+        double endTime = runtime + secondsToWait;
+        while (runtime < endTime) { }
+    }
  }
