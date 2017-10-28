@@ -110,30 +110,34 @@ public class HardwareSampleBot
         rightClaw = hwMap.get(Servo.class, "right_hand");
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
-
-
-
-
-
     }
+
+    // Function "forward"
+    // make robot move forward at specified speed
     void forward(double speed) {
         frontleftDrive.setPower(speed);
         frontrightDrive.setPower(speed);
         backrightDrive.setPower(speed);
         backleftDrive.setPower(speed);
     }
+<<<<<<< HEAD
     void go_in_a_circle(double speed) {
         frontleftDrive.setPower(speed);
         frontrightDrive.setPower(-speed);
         backleftDrive.setPower(speed);
         backrightDrive.setPower(-speed);
     }
+=======
+    // Function "stopMoving"
+    // make the movement motors on the robot turn off
+>>>>>>> f248d3b26856b792e8f799ac248789f786d11c4f
     void stopMoving() {
         frontleftDrive.setPower(0);
         frontrightDrive.setPower(0);
         backrightDrive.setPower(0);
         backleftDrive.setPower(0);
     }
+<<<<<<< HEAD
     void backward(double speed){
         frontleftDrive.setPower(speed);
         frontrightDrive.setPower(speed);
@@ -141,4 +145,49 @@ public class HardwareSampleBot
         backleftDrive.setPower(speed);
     }
 }
+=======
+    // Function "turnDegree"
+    // make the robot turn a specified degree
+    void turnDegree(double degree, ElapsedTime runtime){
+        double speed = frontrightDrive.getPower();
+        double endTime = (degree / speed) + runtime.seconds();
+        // since angle = angular velocity * time,
+        // time = angle / velocity
+        if (degree > 0) {
+            frontrightDrive.setPower(-speed);
+            backrightDrive.setPower(-speed);
+        } else if (degree < 0) {
+            frontleftDrive.setPower(-speed);
+            backleftDrive.setPower(-speed);
+        }
+
+        while (runtime.seconds() < endTime) {
+        } // let the runtime go
+
+        if (degree > 0) {
+            frontrightDrive.setPower(speed);
+            backrightDrive.setPower(speed);
+        } else if (degree < 0) {
+            frontleftDrive.setPower(speed);
+            backleftDrive.setPower(speed);
+        }
+    }
+
+    void turnAround(ElapsedTime runtime) {
+        turnDegree(180, runtime);
+    }
+    void turnRight(ElapsedTime runtime){
+        turnDegree(90, runtime);
+    }
+    void turnleft(ElapsedTime runtime){
+        turnDegree(-90, runtime);
+    }
+
+    void stopAndWait(double secondsToWait, ElapsedTime runtime) {
+        stopMoving();
+        double endTime = runtime.seconds() + secondsToWait;
+        while (runtime.seconds() < endTime) { }
+    }
+ }
+>>>>>>> f248d3b26856b792e8f799ac248789f786d11c4f
 

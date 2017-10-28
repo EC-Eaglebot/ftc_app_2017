@@ -55,23 +55,24 @@ public class eaglebot_auto_Corey extends LinearOpMode {
         // to make the code between // START and // END whatever you want the
         // robot to do.
 
-        // START
+        // *** START ****************
 
         robot.stopMoving();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 8)) {
-            telemetry.addData("Stopped", runtime.seconds());
-            telemetry.update();
-        }
-        robot.forward(0.5);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
-            telemetry.addData("Moving Forward", runtime.seconds());
-            telemetry.update();
-        }
-        robot.stop();
+        robot.forward(5);
+        robot.turnDegree(90,runtime);
+        robot.forward(1);
+        robot.turnDegree(90,runtime);
+        robot.forward(-10);
+        robot.stopAndWait(5,runtime);
+        robot.turnDegree(-180,runtime);
+        robot.forward(7);
+        robot.turnDegree(-120);
+        robot.forward(5);
+        robot.forward(-5);
+        robot.stopMoving();
 
-        // END
+        // *** END *******************
 
         // Below here is where the robot will stop and go to sleep. Make
         // sure you have the last line above as "robot.stop();" !
@@ -81,7 +82,6 @@ public class eaglebot_auto_Corey extends LinearOpMode {
         sleep(1000);
     }
 }
-
 // TOOLBOX OF FUNCTIONS
 // *********************
 /*
@@ -89,11 +89,10 @@ public class eaglebot_auto_Corey extends LinearOpMode {
     Make the motors stop moving:            robot.stopMoving();
     Make the robot move forward:            robot.forward(<insert speed here>);
     Display a message to the screen:        telemetry.addData("Message","value");
-    Update the screen for the message:      telemetry.addData();
+    Update the screen for the message:      telemetry.update();
     Insert this after a robot.function:     runtime.reset();
     Determine how long the code has run:    runtime.seconds();
 
 
 */
-
 

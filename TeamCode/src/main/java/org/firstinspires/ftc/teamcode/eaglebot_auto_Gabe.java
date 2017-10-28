@@ -21,7 +21,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Eaglebot: Center Ball", group="Eaglebot")
+@Autonomous(name="Eaglebot: Center Backup", group="Eaglebot")
 public class eaglebot_auto_Gabe extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -59,17 +59,19 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
 
         robot.stopMoving();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 8)) {
+        while (runtime.seconds() < 8) {
             telemetry.addData("Stopped", runtime.seconds());
             telemetry.update();
         }
-        robot.forward(0.5);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
+        robot.forward(10);
+        while (runtime.seconds() < 2) {
             telemetry.addData("Moving Forward", runtime.seconds());
             telemetry.update();
         }
-        robot.stop();
+        robot.turnDegree();
+        robot.stopMoving();
+
+
 
         // END
 
@@ -81,7 +83,6 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
         sleep(1000);
     }
 }
-
 // TOOLBOX OF FUNCTIONS
 // *********************
 /*
@@ -89,11 +90,15 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
     Make the motors stop moving:            robot.stopMoving();
     Make the robot move forward:            robot.forward(<insert speed here>);
     Display a message to the screen:        telemetry.addData("Message","value");
-    Update the screen for the message:      telemetry.addData();
+    Update the screen for the message:      telemetry.update();
     Insert this after a robot.function:     runtime.reset();
     Determine how long the code has run:    runtime.seconds();
 
 
+<<<<<<< Updated upstream
+<<<<<<< HEAD
 */
+
+
 
 
