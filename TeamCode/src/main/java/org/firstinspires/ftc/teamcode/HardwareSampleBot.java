@@ -133,6 +133,8 @@ public class HardwareSampleBot
     void turnDegree(double degree, ElapsedTime runtime){
         double speed = frontrightDrive.getPower();
         double endTime = (degree / speed) + runtime.seconds();
+        // since angle = angular velocity * time,
+        // time = angle / velocity
         if (degree > 0) {
             frontrightDrive.setPower(-speed);
             backrightDrive.setPower(-speed);
@@ -165,7 +167,8 @@ public class HardwareSampleBot
 
     void stopAndWait(double secondsToWait, ElapsedTime runtime) {
         stopMoving();
-        double endTime = runtime + secondsToWait;
-        while (runtime < endTime) { }
+        double endTime = runtime.seconds() + secondsToWait;
+        while (runtime.seconds() < endTime) { }
     }
  }
+
