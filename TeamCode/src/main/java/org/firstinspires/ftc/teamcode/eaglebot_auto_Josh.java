@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -57,6 +60,12 @@ public class eaglebot_auto_Josh extends LinearOpMode {
 
         // START
 
+        // START
+
+
+
+        //leftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         robot.stopMoving();
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 8)) {
@@ -68,6 +77,10 @@ public class eaglebot_auto_Josh extends LinearOpMode {
         while (opModeIsActive() && (runtime.seconds() < 2)) {
             telemetry.addData("Moving Forward", runtime.seconds());
             telemetry.update();
+
+        }
+        {
+
         }
         robot.stop();
 
