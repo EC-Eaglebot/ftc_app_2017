@@ -110,15 +110,23 @@ public class HardwareSampleBot
         rightClaw = hwMap.get(Servo.class, "right_hand");
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 79056c1f1fadc9e646a087cb098a790844e530bc
     }
+
+    // Function "forward"
+    // make robot move forward at specified speed
     void forward(double speed) {
         frontleftDrive.setPower(speed);
         frontrightDrive.setPower(speed);
         backrightDrive.setPower(speed);
         backleftDrive.setPower(speed);
     }
+    // Function "stopMoving"
+    // make the movement motors on the robot turn off
     void stopMoving() {
         frontleftDrive.setPower(0);
         frontrightDrive.setPower(0);
@@ -127,30 +135,44 @@ public class HardwareSampleBot
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
     }
-
+    // Function "turnDegree"
+    // make the robot turn a specified degree
     void turnDegree(double degree, ElapsedTime runtime){
         double speed = frontrightDrive.getPower();
-        double endTime = (degree / speed);
-        if (degree > 0){
+        double endTime = (degree / speed) + runtime.seconds();
+        if (degree > 0) {
             frontrightDrive.setPower(-speed);
             backrightDrive.setPower(-speed);
-        }
-        else if (degree < 0){
+        } else if (degree < 0) {
             frontleftDrive.setPower(-speed);
             backleftDrive.setPower(-speed);
         }
 
-        while (runtime < endTime) { }
+        while (runtime.seconds() < endTime) {
+        } // let the runtime go
 
-        if (degree > 0){
+        if (degree > 0) {
             frontrightDrive.setPower(speed);
             backrightDrive.setPower(speed);
-        }
-        else if (degree < 0){
+        } else if (degree < 0) {
             frontleftDrive.setPower(speed);
             backleftDrive.setPower(speed);
         }
     }
 
+    void turnAround(ElapsedTime runtime) {
+        turnDegree(180, runtime);
+    }
+    void turnRight(ElapsedTime runtime){
+        turnDegree(90, runtime);
+    }
+    void turnleft(ElapsedTime runtime){
+        turnDegree(-90, runtime);
+    }
 
+    void stopAndWait(double secondsToWait, ElapsedTime runtime) {
+        stopMoving();
+        double endTime = runtime + secondsToWait;
+        while (runtime < endTime) { }
+    }
  }
