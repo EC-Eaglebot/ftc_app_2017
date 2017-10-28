@@ -134,6 +134,11 @@ public class HardwareSampleBot
         backrightDrive.setPower(0);
         backleftDrive.setPower(0);
     }
-
- }
+    void backward(double speed){
+        frontleftDrive.setPower(speed);
+        frontrightDrive.setPower(speed);
+        backleftDrive.setPower(speed);
+        backleftDrive.setPower(speed);
+    }
+}
 
