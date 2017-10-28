@@ -125,8 +125,17 @@ public class HardwareSampleBot
         backrightDrive.setPower(speed);
         backleftDrive.setPower(speed);
     }
+<<<<<<< HEAD
+    void go_in_a_circle(double speed) {
+        frontleftDrive.setPower(speed);
+        frontrightDrive.setPower(-speed);
+        backleftDrive.setPower(speed);
+        backrightDrive.setPower(-speed);
+    }
+=======
     // Function "stopMoving"
     // make the movement motors on the robot turn off
+>>>>>>> f248d3b26856b792e8f799ac248789f786d11c4f
     void stopMoving() {
         frontleftDrive.setPower(0);
         frontrightDrive.setPower(0);
@@ -135,11 +144,22 @@ public class HardwareSampleBot
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
     }
+<<<<<<< HEAD
+    void backward(double speed){
+        frontleftDrive.setPower(speed);
+        frontrightDrive.setPower(speed);
+        backleftDrive.setPower(speed);
+        backleftDrive.setPower(speed);
+    }
+}
+=======
     // Function "turnDegree"
     // make the robot turn a specified degree
     void turnDegree(double degree, ElapsedTime runtime){
         double speed = frontrightDrive.getPower();
         double endTime = (degree / speed) + runtime.seconds();
+        // since angle = angular velocity * time,
+        // time = angle / velocity
         if (degree > 0) {
             frontrightDrive.setPower(-speed);
             backrightDrive.setPower(-speed);
@@ -172,7 +192,9 @@ public class HardwareSampleBot
 
     void stopAndWait(double secondsToWait, ElapsedTime runtime) {
         stopMoving();
-        double endTime = runtime + secondsToWait;
-        while (runtime < endTime) { }
+        double endTime = runtime.seconds() + secondsToWait;
+        while (runtime.seconds() < endTime) { }
     }
  }
+>>>>>>> f248d3b26856b792e8f799ac248789f786d11c4f
+
