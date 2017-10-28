@@ -127,7 +127,12 @@ public class HardwareSampleBot
         backleftDrive.setPower(speed);
         backrightDrive.setPower(-speed);
     }
+<<<<<<< HEAD
 
+=======
+    // Function "stopMoving"
+    // make the movement motors on the robot turn off
+>>>>>>> a3dc5cec3a511d6d6235870dece07380f7b2c2e0
     void stopMoving() {
         frontleftDrive.setPower(0);
         frontrightDrive.setPower(0);
@@ -136,7 +141,10 @@ public class HardwareSampleBot
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> a3dc5cec3a511d6d6235870dece07380f7b2c2e0
     void backward(double speed){
         frontleftDrive.setPower(speed);
         frontrightDrive.setPower(speed);
@@ -144,6 +152,12 @@ public class HardwareSampleBot
         backleftDrive.setPower(speed);
 
     }
+<<<<<<< HEAD
+=======
+}
+    // Function "turnDegree"
+    // make the robot turn a specified degree
+>>>>>>> a3dc5cec3a511d6d6235870dece07380f7b2c2e0
     void turnDegree(double degree, ElapsedTime runtime){
         double speed = frontrightDrive.getPower();
         double endTime = (degree / speed) + runtime.seconds();
@@ -184,6 +198,10 @@ public class HardwareSampleBot
         double endTime = runtime.seconds() + secondsToWait;
         while (runtime.seconds() < endTime) { }
     }
+<<<<<<< HEAD
 }
 
 
+=======
+ }
+>>>>>>> a3dc5cec3a511d6d6235870dece07380f7b2c2e0
