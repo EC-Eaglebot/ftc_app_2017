@@ -57,12 +57,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 @TeleOp(name="Basic: Tele OpMode", group="TestBot")
 //@Disabled
-public class eaglebot_auto_Cassidy extends LinearOpMode {
+public class eaglebot_no_motors extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
     VuforiaLocalizer vuforia;
 
     @Override
@@ -72,8 +70,6 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         telemetry.update();
 
 
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
@@ -84,8 +80,6 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
 
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -94,34 +88,25 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             while (runtime.seconds() < 1) {
-                leftDrive.setPower(0.2);
-                rightDrive.setPower(0.2);
-            }
-            leftDrive.setPower(0);
-            rightDrive.setPower(0);
-            runtime.reset();
 
-            //pick up cube here
+                //pick up cube here
 
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
-                //strafe or something
+                RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+                while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
+                    //strafe or something
+                }
+                if (vuMark == RelicRecoveryVuMark.LEFT) {
+                    telemetry.addData("Key should be placed left", vuMark);
+                } else if (vuMark == RelicRecoveryVuMark.CENTER) {
+                    telemetry.addData("Key should be placed center", vuMark);
+                } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+                    telemetry.addData("Key should be placed right", vuMark);
+                } else {
+                    telemetry.addData("VuMark not visible", vuMark);
+                }
+                telemetry.update();
             }
-            if (vuMark == RelicRecoveryVuMark.LEFT) {
-                telemetry.addData("Key should be placed left", vuMark);
-            }
-            else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                telemetry.addData("Key should be placed center", vuMark);
-            }
-            else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                telemetry.addData("Key should be placed right", vuMark);
-            }
-            else {
-                telemetry.addData("VuMark not visible", vuMark);
-            }
-            telemetry.update();
+
         }
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
     }
 }
