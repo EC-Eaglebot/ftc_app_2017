@@ -55,14 +55,21 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="Basic: Tele OpMode", group="TestBot")
+@TeleOp(name="TeleOp mode for test", group="TestBot")
 //@Disabled
 public class eaglebot_auto_Cassidy extends LinearOpMode {
+    HardwareSampleBot robot       = new HardwareSampleBot(); // use the class created to define a Pushbot's hardware
+    // could also use HardwarePushbotMatrix class.
+    double          clawOffset  = 0.0 ;                  // Servo mid position
+    final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
+
+    /*
+     * Code to run ONCE Bhen the driver hits INIT
+     */
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
+
     VuforiaLocalizer vuforia;
 
     @Override
@@ -72,8 +79,7 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         telemetry.update();
 
 
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
@@ -84,16 +90,20 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
 
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
+        relicTrackables.activate();
+        // above code is how to activate the VuForia camera tracking.
+        // *******
+        // MAKE SURE THIS IS NOT COMMENTED OUT!
+        // *******
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            while (runtime.seconds() < 1) {
+            /* while (runtime.seconds() < 1) {
                 leftDrive.setPower(0.2);
                 rightDrive.setPower(0.2);
             }
@@ -102,26 +112,27 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
             runtime.reset();
 
             //pick up cube here
-
+            */
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
             while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
                 //strafe or something
+                telemetry.addData("Searching...", vuMark);
+                telemetry.update();
             }
             if (vuMark == RelicRecoveryVuMark.LEFT) {
                 telemetry.addData("Key should be placed left", vuMark);
-            }
-            else if (vuMark == RelicRecoveryVuMark.CENTER) {
+            } else if (vuMark == RelicRecoveryVuMark.CENTER) {
                 telemetry.addData("Key should be placed center", vuMark);
-            }
-            else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
                 telemetry.addData("Key should be placed right", vuMark);
-            }
-            else {
+            } else {
                 telemetry.addData("VuMark not visible", vuMark);
             }
             telemetry.update();
+
         }
-        leftDrive.setPower(0);
+        /* leftDrive.setPower(0);
         rightDrive.setPower(0);
+        */
     }
 }

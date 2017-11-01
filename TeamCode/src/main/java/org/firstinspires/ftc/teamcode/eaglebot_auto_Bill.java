@@ -21,7 +21,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Eaglebot: Center Ball", group="Eaglebot")
+@Autonomous(name="Eaglebot: Bill", group="Eaglebot")
+@Disabled
 public class eaglebot_auto_Bill extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -69,7 +70,7 @@ public class eaglebot_auto_Bill extends LinearOpMode {
             telemetry.addData("Moving Forward", runtime.seconds());
             telemetry.update();
         }
-        robot.stop();
+        robot.stopMoving();
 
         // END
 

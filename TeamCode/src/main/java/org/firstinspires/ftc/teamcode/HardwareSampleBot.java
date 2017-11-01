@@ -58,8 +58,8 @@ public class HardwareSampleBot
     public DcMotor  backleftDrive   = null;
     public DcMotor  backrightDrive  = null;
     //public DcMotor  leftArm     = null;
-    public Servo    leftClaw    = null;
-    public Servo    rightClaw   = null;
+    // public Servo    leftClaw    = null;
+    // public Servo    rightClaw   = null;
 
     public static final double MID_SERVO       =  0.5 ;
     //public static final double ARM_UP_POWER    =  0.45 ;
@@ -106,10 +106,10 @@ public class HardwareSampleBot
         //leftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-        leftClaw  = hwMap.get(Servo.class, "left_hand");
-        rightClaw = hwMap.get(Servo.class, "right_hand");
-        leftClaw.setPosition(MID_SERVO);
-        rightClaw.setPosition(MID_SERVO);
+        //leftClaw  = hwMap.get(Servo.class, "left_hand");
+        //rightClaw = hwMap.get(Servo.class, "right_hand");
+        //leftClaw.setPosition(MID_SERVO);
+        //rightClaw.setPosition(MID_SERVO);
 
     }
 
@@ -127,24 +127,19 @@ public class HardwareSampleBot
         backleftDrive.setPower(speed);
         backrightDrive.setPower(-speed);
     }
-<<<<<<< HEAD
 
-=======
     // Function "stopMoving"
     // make the movement motors on the robot turn off
->>>>>>> a3dc5cec3a511d6d6235870dece07380f7b2c2e0
+
     void stopMoving() {
         frontleftDrive.setPower(0);
         frontrightDrive.setPower(0);
         backrightDrive.setPower(0);
         backleftDrive.setPower(0);
-        leftClaw.setPosition(MID_SERVO);
-        rightClaw.setPosition(MID_SERVO);
+        //leftClaw.setPosition(MID_SERVO);
+        //rightClaw.setPosition(MID_SERVO);
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> a3dc5cec3a511d6d6235870dece07380f7b2c2e0
     void backward(double speed){
         frontleftDrive.setPower(speed);
         frontrightDrive.setPower(speed);
@@ -152,12 +147,11 @@ public class HardwareSampleBot
         backleftDrive.setPower(speed);
 
     }
-<<<<<<< HEAD
-=======
-}
+
+
     // Function "turnDegree"
     // make the robot turn a specified degree
->>>>>>> a3dc5cec3a511d6d6235870dece07380f7b2c2e0
+
     void turnDegree(double degree, ElapsedTime runtime){
         double speed = frontrightDrive.getPower();
         double endTime = (degree / speed) + runtime.seconds();
@@ -198,10 +192,8 @@ public class HardwareSampleBot
         double endTime = runtime.seconds() + secondsToWait;
         while (runtime.seconds() < endTime) { }
     }
-<<<<<<< HEAD
+
 }
 
 
-=======
- }
->>>>>>> a3dc5cec3a511d6d6235870dece07380f7b2c2e0
+

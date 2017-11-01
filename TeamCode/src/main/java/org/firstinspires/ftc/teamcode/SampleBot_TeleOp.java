@@ -52,6 +52,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 @TeleOp(name="SampleBot:TeleOp", group="SampleBot")
+@Disabled
 public class SampleBot_TeleOp extends OpMode{
 
     /* Declare OpMode members. */
@@ -117,8 +118,8 @@ public class SampleBot_TeleOp extends OpMode{
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
         clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-        robot.leftClaw.setPosition(robot.MID_SERVO + clawOffset);
-        robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
+        //robot.leftClaw.setPosition(robot.MID_SERVO + clawOffset);
+        //robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
 
 
 

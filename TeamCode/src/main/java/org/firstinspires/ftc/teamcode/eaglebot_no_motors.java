@@ -56,7 +56,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
 @TeleOp(name="Basic: Tele OpMode", group="TestBot")
-//@Disabled
 public class eaglebot_no_motors extends LinearOpMode {
 
     // Declare OpMode members.
