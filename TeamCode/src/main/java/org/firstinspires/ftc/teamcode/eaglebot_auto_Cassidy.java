@@ -102,6 +102,9 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         // *******
 
         // run until the end of the match (driver presses STOP)
+
+
+
         while (opModeIsActive()) {
             /* while (runtime.seconds() < 1) {
                 leftDrive.setPower(0.2);
@@ -135,4 +138,25 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         rightDrive.setPower(0);
         */
     }
+}
+
+public static void PlaceCube(dir d){
+
+    switch(dir) {
+        case dir.LEFT:
+            // handle placing the cube into left position
+            break;
+        case dir.CENTER:
+            // handle placing the cube into the center position
+            break;
+        case dir.RIGHT:
+            // handle palcing the cube into the right position
+            break;
+    }
+}
+
+public enum dir {
+    LEFT,
+    CENTER,
+    RIGHT
 }
