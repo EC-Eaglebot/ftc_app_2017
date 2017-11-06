@@ -14,8 +14,11 @@ android {
 
     buildToolsVersion '26.0.2'
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b6e75767c29ae65540873811cce9946cd933dbb6
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
