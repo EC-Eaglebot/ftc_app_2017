@@ -55,10 +55,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="TeleOp mode for test", group="TestBot")
+@TeleOp(name="Vuforia Test", group="TestBot")
 //@Disabled
 public class eaglebot_auto_Cassidy extends LinearOpMode {
-    HardwareSampleBot robot       = new HardwareSampleBot(); // use the class created to define a Pushbot's hardware
+    static HardwareSampleBot robot       = new HardwareSampleBot(); // use the class created to define a Pushbot's hardware
     // could also use HardwarePushbotMatrix class.
     double          clawOffset  = 0.0 ;                  // Servo mid position
     final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
@@ -68,7 +68,7 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
      */
 
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
+    static ElapsedTime runtime = new ElapsedTime();
 
     VuforiaLocalizer vuforia;
 
@@ -116,8 +116,8 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
 
             //pick up cube here
             */
-
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
             /*while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
                 //strafe or something
                 telemetry.addData("Searching...", vuMark);
@@ -126,10 +126,13 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
             */
             if (vuMark == RelicRecoveryVuMark.LEFT) {
                 telemetry.addData("Key should be placed left", vuMark);
+                PlaceCube(dir.LEFT);
             } else if (vuMark == RelicRecoveryVuMark.CENTER) {
                 telemetry.addData("Key should be placed center", vuMark);
+                PlaceCube(dir.CENTER);
             } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
                 telemetry.addData("Key should be placed right", vuMark);
+                PlaceCube(dir.RIGHT);
             } else {
                 telemetry.addData("VuMark not visible", vuMark);
             }
@@ -142,23 +145,31 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
     }
 }
 
-/*public static void PlaceCube(dir d){
-
-    switch(dir) {
-        case dir.LEFT:
+public static void PlaceCube(dir d){
+    // change the state based on the input
+    switch(d) {
+        case LEFT:
             // handle placing the cube into left position
+            robot.turnDegree(-90,runtime);
+            robot.stopMoving();
             break;
-        case dir.CENTER:
+        case CENTER:
             // handle placing the cube into the center position
+            robot.forward(10);
+            robot.wait(1000);
+            robot.stopMoving();
+
             break;
-        case dir.RIGHT:
+        case RIGHT:
             // handle palcing the cube into the right position
+            robot.turnDegree(90,runtime);
+            robot.stopMoving();
             break;
     }
 }
 
-public enum dir {
+enum dir {
     LEFT,
     CENTER,
     RIGHT
-}*/
+}
