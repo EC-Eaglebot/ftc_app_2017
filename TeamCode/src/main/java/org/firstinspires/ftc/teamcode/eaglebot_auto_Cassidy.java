@@ -140,7 +140,7 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
     }
 }
 
-public static void PlaceCube(dir d){
+/*public static void PlaceCube(dir d){
 
     switch(dir) {
         case dir.LEFT:
@@ -159,4 +159,4 @@ public enum dir {
     LEFT,
     CENTER,
     RIGHT
-}
+}*/
