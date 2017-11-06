@@ -143,33 +143,35 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         rightDrive.setPower(0);
         */
     }
-}
 
-public static void PlaceCube(dir d){
-    // change the state based on the input
-    switch(d) {
-        case LEFT:
-            // handle placing the cube into left position
-            robot.turnDegree(-90,runtime);
-            robot.stopMoving();
-            break;
-        case CENTER:
-            // handle placing the cube into the center position
-            robot.forward(10);
-            robot.wait(1000);
-            robot.stopMoving();
+    public static void PlaceCube(dir glyphDirection){
+        // change the state based on the input
+        switch(glyphDirection) {
+            case LEFT:
+                // handle placing the cube into left position
+                robot.turnDegree(-90,runtime);
+                robot.stopMoving();
+                break;
+            case CENTER:
+                // handle placing the cube into the center position
+                robot.forward(10);
+                robot.stopMoving();
 
-            break;
-        case RIGHT:
-            // handle palcing the cube into the right position
-            robot.turnDegree(90,runtime);
-            robot.stopMoving();
-            break;
+                break;
+            case RIGHT:
+                // handle palcing the cube into the right position
+                robot.turnDegree(90,runtime);
+                robot.stopMoving();
+                break;
+        }
     }
+    enum dir {
+        LEFT,
+        CENTER,
+        RIGHT
+    }
+
 }
 
-enum dir {
-    LEFT,
-    CENTER,
-    RIGHT
-}
+
+
