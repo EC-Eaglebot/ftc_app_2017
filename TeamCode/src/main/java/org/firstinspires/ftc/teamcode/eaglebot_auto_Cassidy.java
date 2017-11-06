@@ -93,7 +93,7 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        runtime.reset();
+       //runtime.reset();
 
         relicTrackables.activate();
         // above code is how to activate the VuForia camera tracking.
@@ -116,12 +116,14 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
 
             //pick up cube here
             */
+
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
+            /*while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
                 //strafe or something
                 telemetry.addData("Searching...", vuMark);
                 telemetry.update();
             }
+            */
             if (vuMark == RelicRecoveryVuMark.LEFT) {
                 telemetry.addData("Key should be placed left", vuMark);
             } else if (vuMark == RelicRecoveryVuMark.CENTER) {
