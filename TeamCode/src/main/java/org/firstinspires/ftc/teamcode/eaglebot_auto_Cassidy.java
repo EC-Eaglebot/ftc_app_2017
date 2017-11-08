@@ -78,24 +78,11 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-
-
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-
-        parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-
-        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-
-
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
        //runtime.reset();
 
-        relicTrackables.activate();
+
         // above code is how to activate the VuForia camera tracking.
         // *******
         // MAKE SURE THIS IS NOT COMMENTED OUT!
@@ -103,9 +90,15 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
 
-
-
         while (opModeIsActive()) {
+
+            int direction = GetGlyphDirection();
+            if (direction == dir.LEFT)  { telemetry.addData("Placing cube left...",vuMark); }
+            if (direction == dir.CENTER){ telemetry.addData("Placing cube center...", vuMark); }
+            if (direction == dir.RIGHT) { telemetry.addData("Placing cube right...", vuMark); }
+            if (direction == dir.ERROR) { telemetry.addData("Error occurred!", vuMark); }
+            PlaceCube(direction);
+
             /* while (runtime.seconds() < 1) {
                 leftDrive.setPower(0.2);
                 rightDrive.setPower(0.2);
@@ -116,7 +109,6 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
 
             //pick up cube here
             */
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
             /*while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
                 //strafe or something
@@ -124,53 +116,70 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
                 telemetry.update();
             }
             */
-            if (vuMark == RelicRecoveryVuMark.LEFT) {
-                telemetry.addData("Key should be placed left", vuMark);
-                PlaceCube(dir.LEFT);
-            } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                telemetry.addData("Key should be placed center", vuMark);
-                PlaceCube(dir.CENTER);
-            } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                telemetry.addData("Key should be placed right", vuMark);
-                PlaceCube(dir.RIGHT);
-            } else {
-                telemetry.addData("VuMark not visible", vuMark);
-            }
-            telemetry.update();
 
-        }
+
+                    }
         /* leftDrive.setPower(0);
         rightDrive.setPower(0);
         */
-    }
 
-    public static void PlaceCube(dir glyphDirection){
+        }
+
+    public int GetGlyphDirection (){
+        // put more of the vuforia stuff here
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
+        relicTrackables.activate();
+3
+        if (vuMark == RelicRecoveryVuMark.LEFT) {
+            return dir.LEFT;
+
+        } else if (vuMark == RelicRecoveryVuMark.CENTER) {
+            return dir.CENTER;
+        } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            return dir.RIGHT;
+        } else {
+            return dir.ERROR;
+        }
+    }
+    public void PlaceCube ( int glyphDirection){
         // change the state based on the input
-        switch(glyphDirection) {
-            case LEFT:
+        switch (glyphDirection) {
+            case dir.LEFT:
                 // handle placing the cube into left position
-                robot.turnDegree(-90,runtime);
+                robot.turnDegree(-90, runtime);
                 robot.stopMoving();
                 break;
-            case CENTER:
+            case dir.CENTER:
                 // handle placing the cube into the center position
                 robot.forward(10);
                 robot.stopMoving();
 
                 break;
-            case RIGHT:
+            case dir.RIGHT:
                 // handle palcing the cube into the right position
-                robot.turnDegree(90,runtime);
+                robot.turnDegree(90, runtime);
                 robot.stopMoving();
                 break;
         }
     }
+
     enum dir {
         LEFT,
         CENTER,
-        RIGHT
+        RIGHT,
+        ERROR
     }
-
 }
 
 
