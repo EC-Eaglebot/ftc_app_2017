@@ -88,6 +88,7 @@ public class vuforia_test extends LinearOpMode {
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
 
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -100,10 +101,10 @@ public class vuforia_test extends LinearOpMode {
         // *******
 
         // run until the end of the match (driver presses STOP)
-        double fLeft;
-        double fRight;
-        double bLeft;
-        double bRight;
+        double fLeft = 0;
+        double fRight = 0;
+        double bLeft = 0;
+        double bRight = 0;
 
 
         while (opModeIsActive()) {
@@ -131,7 +132,7 @@ public class vuforia_test extends LinearOpMode {
             robot.backrightDrive.setPower(bRight);
 
 
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
 
             /*while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
                 //strafe or something

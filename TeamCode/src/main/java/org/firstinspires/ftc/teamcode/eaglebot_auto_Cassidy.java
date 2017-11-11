@@ -91,12 +91,12 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            dir direction = GetGlyphDirection();
+            /*dir direction = GetGlyphDirection();
             if (direction == dir.LEFT)  { telemetry.addData("Placing cube left...",vuMark); }
             if (direction == dir.CENTER){ telemetry.addData("Placing cube center...", vuMark); }
             if (direction == dir.RIGHT) { telemetry.addData("Placing cube right...", vuMark); }
             if (direction == dir.ERROR) { telemetry.addData("Error occurred!", vuMark); }
-            PlaceCube(direction);
+            PlaceCube(direction);*/
 
             /* while (runtime.seconds() < 1) {
                 leftDrive.setPower(0.2);
@@ -121,7 +121,7 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
             robot.backrightDrive.setPower(bRight);
 
 
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            //RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
             /*while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
                 //strafe or something
