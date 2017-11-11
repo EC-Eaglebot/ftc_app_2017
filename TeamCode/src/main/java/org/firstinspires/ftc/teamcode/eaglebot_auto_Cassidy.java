@@ -83,18 +83,11 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         waitForStart();
        //runtime.reset();
 
-
-        // above code is how to activate the VuForia camera tracking.
-        // *******
-        // MAKE SURE THIS IS NOT COMMENTED OUT!
-        // *******
-
         // run until the end of the match (driver presses STOP)
         double fLeft;
         double fRight;
         double bLeft;
         double bRight;
-
 
         while (opModeIsActive()) {
 
@@ -163,7 +156,6 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
 
         if (vuMark == RelicRecoveryVuMark.LEFT) {
             return dir.LEFT;
-
         } else if (vuMark == RelicRecoveryVuMark.CENTER) {
             return dir.CENTER;
         } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
@@ -193,7 +185,7 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
                 break;
             case ERROR:
                 // handle error (should never happen)
-                telemetry.addData("Error");
+                robot.stopMoving();
         }
     }
     enum dir {
