@@ -57,6 +57,7 @@ public class HardwareSampleBot
     public DcMotor  frontrightDrive  = null;
     public DcMotor  backleftDrive   = null;
     public DcMotor  backrightDrive  = null;
+    public Servo arm = null;
     //public DcMotor  leftArm     = null;
     // public Servo    leftClaw    = null;
     // public Servo    rightClaw   = null;
@@ -84,6 +85,7 @@ public class HardwareSampleBot
         frontrightDrive = hwMap.get(DcMotor.class, "frontright_drive");
         backleftDrive  = hwMap.get(DcMotor.class, "backleft_drive");
         backrightDrive = hwMap.get(DcMotor.class, "backright_drive");
+        arm = hwMap.get(Servo.class,"arm");
        // leftArm    = hwMap.get(DcMotor.class, "left_arm");
         frontleftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         frontrightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors

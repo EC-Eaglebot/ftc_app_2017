@@ -29,10 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -56,9 +54,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="cassidy_auto", group="TestBot")
-@Disabled
-public class eaglebot_auto_Cassidy extends LinearOpMode {
+@TeleOp(name="Vuforia Test", group="TestBot")
+public class vuforia_test extends LinearOpMode {
     static HardwareSampleBot robot       = new HardwareSampleBot(); // use the class created to define a Pushbot's hardware
     // could also use HardwarePushbotMatrix class.
     double          clawOffset  = 0.0 ;                  // Servo mid position
