@@ -92,7 +92,7 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            int direction = GetGlyphDirection();
+            dir direction = GetGlyphDirection();
             if (direction == dir.LEFT)  { telemetry.addData("Placing cube left...",vuMark); }
             if (direction == dir.CENTER){ telemetry.addData("Placing cube center...", vuMark); }
             if (direction == dir.RIGHT) { telemetry.addData("Placing cube right...", vuMark); }
@@ -104,7 +104,6 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
                 rightDrive.setPower(0.2);
             }
             leftDrive.setPower(0);
-            rightDrive.setPower(0);
             runtime.reset();
 
             //pick up cube here
@@ -125,7 +124,7 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
 
         }
 
-    public int GetGlyphDirection (){
+    public dir GetGlyphDirection (){
         // put more of the vuforia stuff here
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -140,7 +139,7 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
         relicTrackables.activate();
-3
+
         if (vuMark == RelicRecoveryVuMark.LEFT) {
             return dir.LEFT;
 
@@ -152,28 +151,30 @@ public class eaglebot_auto_Cassidy extends LinearOpMode {
             return dir.ERROR;
         }
     }
-    public void PlaceCube ( int glyphDirection){
+    public void PlaceCube ( dir glyphDirection){
         // change the state based on the input
         switch (glyphDirection) {
-            case dir.LEFT:
+            case LEFT:
                 // handle placing the cube into left position
                 robot.turnDegree(-90, runtime);
                 robot.stopMoving();
                 break;
-            case dir.CENTER:
+            case CENTER:
                 // handle placing the cube into the center position
                 robot.forward(10);
                 robot.stopMoving();
 
                 break;
-            case dir.RIGHT:
+            case RIGHT:
                 // handle palcing the cube into the right position
                 robot.turnDegree(90, runtime);
                 robot.stopMoving();
                 break;
+            case ERROR:
+                // handle error (should never happen)
+                telemetry.addData("Error");
         }
     }
-
     enum dir {
         LEFT,
         CENTER,
