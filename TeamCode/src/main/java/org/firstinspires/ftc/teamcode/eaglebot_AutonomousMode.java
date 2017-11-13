@@ -29,8 +29,10 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -54,8 +56,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="Vuforia Test", group="TestBot")
-public class vuforia_test extends LinearOpMode {
+@TeleOp(name="official_autonomous_mode", group="TestBot")
+//@Disabled
+public class eaglebot_AutonomousMode extends LinearOpMode {
     static HardwareSampleBot robot       = new HardwareSampleBot(); // use the class created to define a Pushbot's hardware
     // could also use HardwarePushbotMatrix class.
     double          clawOffset  = 0.0 ;                  // Servo mid position
@@ -68,8 +71,6 @@ public class vuforia_test extends LinearOpMode {
     // Declare OpMode members.
     static ElapsedTime runtime = new ElapsedTime();
 
-    VuforiaLocalizer vuforia;
-
     @Override
     public void runOpMode() {
 
@@ -77,95 +78,92 @@ public class vuforia_test extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+        //runtime.reset();
+
+        double fLeft;
+        double fRight;
+        double bLeft;
+        double bRight;
+
+        VuforiaLocalizer vuforia;
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
         parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
 
-        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
 
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-       //runtime.reset();
+        relicTrackables.activate();
 
-
-        // above code is how to activate the VuForia camera tracking.
-        // *******
-        // MAKE SURE THIS IS NOT COMMENTED OUT!
-        // *******
-
-        // run until the end of the match (driver presses STOP)
-        double fLeft = 0;
-        double fRight = 0;
-        double bLeft = 0;
-        double bRight = 0;
-
-
+        // Main loop of operation
         while (opModeIsActive()) {
+
+            /*dir direction = GetGlyphDirection();
+            if (direction == dir.LEFT)  { telemetry.addData("Placing cube left...",vuMark); }
+            if (direction == dir.CENTER){ telemetry.addData("Placing cube center...", vuMark); }
+            if (direction == dir.RIGHT) { telemetry.addData("Placing cube right...", vuMark); }
+            if (direction == dir.ERROR) { telemetry.addData("Error occurred!", vuMark); }
+            PlaceCube(direction);*/
+
             /* while (runtime.seconds() < 1) {
                 leftDrive.setPower(0.2);
                 rightDrive.setPower(0.2);
             }
             leftDrive.setPower(0);
-            rightDrive.setPower(0);
             runtime.reset();
-
-
             //pick up cube here
             */
 
-            relicTrackables.activate();
-    //********************
-    //test to see if this line is in the right place
-    //********************
+            /////// NOTE: INVESTIGATE HOW TO GET THE VUFORIA TO WORK A LITTLE BETTER ///////
+            dir direction = GetGlyphDirection(vuMark);
 
-            fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
-            bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
-            fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
-            bLeft = gamepad1.left_stick_y - gamepad1.right_stick_x + gamepad1.left_stick_x;
+            if      (direction == dir.LEFT)  { telemetry.addData("Placing cube left...",vuMark); }
+            else if (direction == dir.CENTER){ telemetry.addData("Placing cube center...", vuMark); }
+            else if (direction == dir.RIGHT) { telemetry.addData("Placing cube right...", vuMark); }
+            else if (direction == dir.ERROR) { telemetry.addData("Error occurred", vuMark); }
+            else                             { telemetry.addData("No response", vuMark); }
 
-            robot.frontleftDrive.setPower(fLeft);
-            robot.frontrightDrive.setPower(fRight);
-            robot.backleftDrive.setPower(bLeft);
-            robot.backrightDrive.setPower(bRight);
+            //fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
+            //bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
+            //fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
+            //bLeft = gamepad1.left_stick_y - gamepad1.right_stick_x + gamepad1.left_stick_x;
 
-            /*while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
-                //strafe or something
-                telemetry.addData("Searching...", vuMark);
-                telemetry.update();
-            }
-            */
-            if (vuMark == RelicRecoveryVuMark.LEFT) {
-                telemetry.addData("Key should be placed left", vuMark);
-                PlaceCube(dir.LEFT);
-            } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                telemetry.addData("Key should be placed center", vuMark);
-                PlaceCube(dir.CENTER);
-            } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                telemetry.addData("Key should be placed right", vuMark);
-                PlaceCube(dir.RIGHT);
-            } else {
-                telemetry.addData("VuMark not visible", vuMark);
-            }
-            telemetry.update();
-
+            //robot.frontleftDrive.setPower(fLeft);
+            //robot.frontrightDrive.setPower(fRight);
+            //robot.backleftDrive.setPower(bLeft);
+            //robot.backrightDrive.setPower(bRight);
         }
-        /* leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        */
     }
 
-    public static void PlaceCube(dir glyphDirection){
+    public dir GetGlyphDirection (RelicRecoveryVuMark vuMark){
+        // put more of the vuforia stuff here
+        do {
+            telemetry.addData("Checking...",vuMark);
+            if (vuMark == RelicRecoveryVuMark.LEFT) {
+                return dir.LEFT;
+            } else if (vuMark == RelicRecoveryVuMark.CENTER) {
+                return dir.CENTER;
+            } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+                return dir.RIGHT;
+            }
+            return dir.ERROR;
+        } while(vuMark != RelicRecoveryVuMark.LEFT && vuMark != RelicRecoveryVuMark.CENTER && vuMark != RelicRecoveryVuMark.RIGHT);
+    }
+
+    public void PlaceCube ( dir glyphDirection){
         // change the state based on the input
-        switch(glyphDirection) {
+        switch (glyphDirection) {
             case LEFT:
                 // handle placing the cube into left position
-                robot.turnDegree(-90,runtime);
+                robot.turnDegree(-90, runtime);
                 robot.stopMoving();
                 break;
             case CENTER:
@@ -176,18 +174,18 @@ public class vuforia_test extends LinearOpMode {
                 break;
             case RIGHT:
                 // handle palcing the cube into the right position
-                robot.turnDegree(90,runtime);
+                robot.turnDegree(90, runtime);
                 robot.stopMoving();
                 break;
+            case ERROR:
+                // handle error (should never happen)
+                robot.stopMoving();
         }
     }
     enum dir {
         LEFT,
         CENTER,
-        RIGHT
+        RIGHT,
+        ERROR
     }
-
 }
-
-
-
