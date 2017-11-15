@@ -125,10 +125,23 @@ public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
             robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
 
             // Use gamepad buttons to move the arm up (Y) and down (A)
-            if (gamepad1.y)
+            if (gamepad1.y) {
                 robot.arm.setPosition(robot.MID_SERVO + .5);
-            else if (gamepad1.a)
+            }
+            else if (gamepad1.a) {
                 robot.arm.setPosition(robot.MID_SERVO - .5);
+            }
+
+
+            if (gamepad1.right_trigger > 0) {
+                robot.liftDrive_down(runtime);
+
+            }
+
+            else if (gamepad1.right_trigger > 0) {
+                robot.liftDrive_up(runtime);
+
+            }
             //else
             //    robot.arm.setPosition(robot.MID_SERVO - .5);
 
