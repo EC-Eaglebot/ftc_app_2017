@@ -103,8 +103,6 @@ public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-
-
             fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
             bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
             fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
@@ -150,6 +148,4 @@ public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
 
 
 }
-
-
 

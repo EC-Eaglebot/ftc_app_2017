@@ -53,14 +53,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HardwareClawbot
 {
     /* Public OpMode members. */
-    public DcMotor  frontleftDrive   = null;
-    public DcMotor  frontrightDrive  = null;
+    public DcMotor  frontleftDrive  = null;
+    public DcMotor  frontrightDrive = null;
     public DcMotor  backleftDrive   = null;
     public DcMotor  backrightDrive  = null;
+    public DcMotor  liftDrive       = null;
     public Servo arm = null;
     public Servo rightClaw = null;
     public Servo leftClaw = null;
-
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double CLAW_SPEED  = 0.02 ;
