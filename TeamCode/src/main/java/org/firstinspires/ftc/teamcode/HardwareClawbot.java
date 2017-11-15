@@ -180,7 +180,21 @@ public class HardwareClawbot
             backleftDrive.setPower(speed);
         }
     }
-
+    void liftDrive_up (ElapsedTime runtime) {
+       runtime.reset();
+       while (runtime.seconds() < 5) {
+           liftDrive.setPower(0.5);
+       }
+    }
+    void liftDrive_down (ElapsedTime runtime) {
+        runtime.reset();
+        while (runtime.seconds() < 5) {
+            liftDrive.setPower(-0.5);
+        }
+    }
+    void liftDrive_test () {
+        liftDrive.setPower(0.5);
+    }
     void turnAround(ElapsedTime runtime) {
         turnDegree(180, runtime);
     }
