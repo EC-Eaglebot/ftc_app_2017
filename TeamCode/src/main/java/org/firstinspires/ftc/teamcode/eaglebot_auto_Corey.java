@@ -60,18 +60,9 @@ public class eaglebot_auto_Corey extends LinearOpMode {
 
         robot.stopMoving();
         runtime.reset();
-        robot.forward(5);
-        robot.turnDegree(90,runtime);
-        robot.forward(1);
-        robot.turnDegree(90,runtime);
-        robot.forward(-10);
-        robot.stopAndWait(5,runtime);
-        robot.turnDegree(-180,runtime);
-        robot.forward(7);
-        robot.turnDegree(-120, runtime);
-        robot.forward(5);
-        robot.forward(-5);
-        robot.stopMoving();
+
+        robot.turnDegree(-90, runtime);
+        robot.forward(0.5);
 
         // *** END *******************
 
