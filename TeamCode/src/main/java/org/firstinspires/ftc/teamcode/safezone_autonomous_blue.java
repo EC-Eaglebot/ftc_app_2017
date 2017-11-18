@@ -95,10 +95,10 @@ public class safezone_autonomous_blue extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             runtime.reset();
-            robot.turnleft(runtime);
+            robot.turnleft();
             runtime.reset();
             while (runtime.seconds() < 2) {
-                robot.forward(HardwareClawbot.standardSpeed);
+                robot.forward(HardwareClawbot.standardSpeed, 5);
             }
             
             //pick up cube here
