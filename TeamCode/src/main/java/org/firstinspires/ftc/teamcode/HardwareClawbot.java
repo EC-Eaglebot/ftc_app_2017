@@ -70,11 +70,10 @@ public class HardwareClawbot
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
-    private ElapsedTime period  = new ElapsedTime();
+    private ElapsedTime runtime  = new ElapsedTime();
 
     /* Constructor */
     public HardwareClawbot(){
-
     }
 
     /* Initialize standard Hardware interfaces */
@@ -111,7 +110,6 @@ public class HardwareClawbot
         backleftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backrightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
         arm.setPosition(MID_SERVO);
@@ -120,17 +118,17 @@ public class HardwareClawbot
 
     // Function "forward"
     // make robot move forward at specified speed
-    void forward(double speed) {
+    void forward(double speed, double secondsToRun) {
+        double end = runtime.seconds() + secondsToRun;
         frontleftDrive.setPower(speed);
         frontrightDrive.setPower(speed);
         backrightDrive.setPower(speed);
         backleftDrive.setPower(speed);
-    }
-    void go_in_a_circle(double speed) {
-        frontleftDrive.setPower(speed);
-        frontrightDrive.setPower(-speed);
-        backleftDrive.setPower(speed);
-        backrightDrive.setPower(-speed);
+        while (end > runtime.seconds()){ } // wait
+        frontleftDrive.setPower(0);
+        frontrightDrive.setPower(0);
+        backrightDrive.setPower(0);
+        backleftDrive.setPower(0);
     }
 
     // Function "stopMoving"
@@ -145,49 +143,41 @@ public class HardwareClawbot
         //rightClaw.setPosition(MID_SERVO);
     }
 
-    void backward(double speed){
-        frontleftDrive.setPower(speed);
-        frontrightDrive.setPower(speed);
-        backleftDrive.setPower(speed);
-        backleftDrive.setPower(speed);
-
+    void backward(double speed, double secondsToRun){
+        this.forward(-speed, secondsToRun);
     }
 
 
     // Function "turnDegree"
     // make the robot turn a specified degree
 
-    void turnDegree(double degree, ElapsedTime runtime){
-        double speed = frontrightDrive.getPower();
-        double endTime = (degree / speed) + runtime.seconds();
+    void turnDegree(double degree){
+        double end = (degree / 0.5) + runtime.seconds();
         // since angle = angular velocity * time,
         // time = angle / velocity
         if (degree > 0) {
-            frontrightDrive.setPower(-speed);
-            backrightDrive.setPower(-speed);
+            frontrightDrive.setPower(-0.5);
+            backrightDrive.setPower(-0.5);
         } else if (degree < 0) {
-            frontleftDrive.setPower(-speed);
-            backleftDrive.setPower(-speed);
+            frontleftDrive.setPower(-0.5);
+            backleftDrive.setPower(-0.5);
         }
 
-        while (runtime.seconds() < endTime) {
-        } // let the runtime go
+        while (end > runtime.seconds()) { } // let the runtime go
 
-        if (degree > 0) {
-            frontrightDrive.setPower(speed);
-            backrightDrive.setPower(speed);
-        } else if (degree < 0) {
-            frontleftDrive.setPower(speed);
-            backleftDrive.setPower(speed);
-        }
+        frontrightDrive.setPower(0);
+        backrightDrive.setPower(0);
+        frontleftDrive.setPower(0);
+        backleftDrive.setPower(0);
     }
-    void liftDrive_up (ElapsedTime runtime) {
+
+    void liftDrive_up () {
        runtime.reset();
        while (runtime.seconds() < 5) {
            liftDrive.setPower(0.5);
        }
     }
-    void liftDrive_down (ElapsedTime runtime) {
+    void liftDrive_down () {
         runtime.reset();
         while (runtime.seconds() < 5) {
             liftDrive.setPower(-0.5);
@@ -196,17 +186,17 @@ public class HardwareClawbot
     void liftDrive_test () {
         liftDrive.setPower(0.5);
     }
-    void turnAround(ElapsedTime runtime) {
-        turnDegree(180, runtime);
+    void turnAround() {
+        turnDegree(180);
     }
-    void turnRight(ElapsedTime runtime){
-        turnDegree(90, runtime);
+    void turnRight(){
+        turnDegree(90);
     }
-    void turnleft(ElapsedTime runtime){
-        turnDegree(-90, runtime);
+    void turnleft(){
+        turnDegree(-90);
     }
 
-    void stopAndWait(double secondsToWait, ElapsedTime runtime) {
+    void stopAndWait(double secondsToWait) {
         stopMoving();
         double endTime = runtime.seconds() + secondsToWait;
         while (runtime.seconds() < endTime) { }

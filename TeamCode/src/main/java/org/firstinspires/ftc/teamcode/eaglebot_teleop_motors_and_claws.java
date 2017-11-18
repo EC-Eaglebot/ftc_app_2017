@@ -134,12 +134,12 @@ public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
 
 
             if (gamepad1.right_trigger > 0) {
-                robot.liftDrive_down(runtime);
+                robot.liftDrive_down();
 
             }
 
             else if (gamepad1.right_trigger > 0) {
-                robot.liftDrive_up(runtime);
+                robot.liftDrive_up();
 
             }
             //else

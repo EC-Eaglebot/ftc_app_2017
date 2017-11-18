@@ -27,7 +27,7 @@ public class eaglebot_auto_Corey extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareSampleBot     robot   = new HardwareSampleBot();
-    private ElapsedTime     runtime = new ElapsedTime();
+    public ElapsedTime     runtime = new ElapsedTime();
 
 
 
