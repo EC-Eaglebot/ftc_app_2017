@@ -67,6 +67,17 @@ public class eaglebot_auto_Corey extends LinearOpMode {
         robot.turnDegree(-90);
         robot.forward(HardwareClawbot.standardSpeed, 1);
 
+        // program script
+
+        // Clamp onto the glyph
+        // Approach the colored balls
+        // Read the color to determine which ball to push
+        // Push the right ball
+        // Read the glyph code
+        // Move to the glyph container
+        // Place the cube in the correct slot
+        // Return to the balancing board
+
         // *** END *******************
 
         // Below here is where the robot will stop and go to sleep. Make
