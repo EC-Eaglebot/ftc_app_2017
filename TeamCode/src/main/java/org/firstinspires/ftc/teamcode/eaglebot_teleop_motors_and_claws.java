@@ -61,7 +61,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
     static HardwareClawbot robot       = new HardwareClawbot(); // use the class created to define a Pushbot's hardware
     // could also use HardwarePushbotMatrix class.
-    double          clawOffset  = 0.0 ;                  // Servo mid position
+    double    clawOffset  = 0.0 ;                  // Servo mid position
     double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
 
     /*
@@ -100,6 +100,7 @@ public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
         double fRight;
         double bLeft;
         double bRight;
+        double liftUp;
 
         while (opModeIsActive()) {
 
@@ -107,17 +108,21 @@ public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
             bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
             fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
             bLeft = gamepad1.left_stick_y - gamepad1.right_stick_x + gamepad1.left_stick_x;
+            liftUp = gamepad1.right_trigger - gamepad1.left_trigger;
+
 
             robot.frontleftDrive.setPower(fLeft);
             robot.frontrightDrive.setPower(fRight);
             robot.backleftDrive.setPower(bLeft);
             robot.backrightDrive.setPower(bRight);
+            robot.liftDrive.setPower(liftUp);
 
             // Use gamepad left & right Bumpers to open and close the claw
             if (gamepad1.right_bumper)
                 clawOffset += CLAW_SPEED;
             else if (gamepad1.left_bumper)
                 clawOffset -= CLAW_SPEED;
+
 
             // Move both servos to new position.  Assume servos are mirror image of each other.
             clawOffset = Range.clip(clawOffset, -0.5, 0.5);
@@ -131,17 +136,12 @@ public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
             else if (gamepad1.a) {
                 robot.arm.setPosition(robot.MID_SERVO - .5);
             }
+            //if (gamepad1.left_trigger > 0) {
+            //    robot.liftDrive_down();
+            //}
 
 
-            if (gamepad1.right_trigger > 0) {
-                robot.liftDrive_down();
 
-            }
-
-            else if (gamepad1.right_trigger > 0) {
-                robot.liftDrive_up();
-
-            }
             //else
             //    robot.arm.setPosition(robot.MID_SERVO - .5);
 
@@ -156,9 +156,6 @@ public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
         /* leftDrive.setPower(0);
         rightDrive.setPower(0);
         */
-
-        }
-
-
+    }
 }
 

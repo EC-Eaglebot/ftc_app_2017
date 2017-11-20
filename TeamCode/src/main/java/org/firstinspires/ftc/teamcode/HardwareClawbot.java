@@ -84,9 +84,9 @@ public class HardwareClawbot
         // Define and Initialize Motors
         frontleftDrive  = hwMap.get(DcMotor.class, "frontleft_drive");
         frontrightDrive = hwMap.get(DcMotor.class, "frontright_drive");
-        backleftDrive  = hwMap.get(DcMotor.class, "backleft_drive");
-        backrightDrive = hwMap.get(DcMotor.class, "backright_drive");
-        liftDrive = hwMap.get(DcMotor.class, "lift");
+        backleftDrive   = hwMap.get(DcMotor.class, "backleft_drive");
+        backrightDrive  = hwMap.get(DcMotor.class, "backright_drive");
+        liftDrive       = hwMap.get(DcMotor.class, "lift");
 
         arm            = hwMap.get(Servo.class,"arm");
         rightClaw      = hwMap.get(Servo.class,"claw_right");
@@ -174,16 +174,18 @@ public class HardwareClawbot
     }
 
     void liftDrive_up () {
-       runtime.reset();
+       liftDrive.setPower(1);
        while (runtime.seconds() < 5) {
            liftDrive.setPower(0.5);
        }
+       liftDrive.setPower(0);
     }
     void liftDrive_down () {
         runtime.reset();
         while (runtime.seconds() < 5) {
             liftDrive.setPower(-0.5);
         }
+        liftDrive.setPower(0);
     }
     void liftDrive_test () {
         liftDrive.setPower(0.5);
