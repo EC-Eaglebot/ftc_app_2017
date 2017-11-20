@@ -62,32 +62,11 @@ public class safezone_autonomous_blue extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
-    VuforiaLocalizer vuforia;
+
 
     @Override
     public void runOpMode() {
-
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-
-        parameters.vuforiaLicenseKey = "ATsODcD/////AAAAAVw2lR...d45oGpdljdOh5LuFB9nDNfckoxb8COxKSFX";
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-
-        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
-
+        robot.init(hardwareMap);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
@@ -103,7 +82,5 @@ public class safezone_autonomous_blue extends LinearOpMode {
             
             //pick up cube here
         }
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
     }
 }
