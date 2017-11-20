@@ -86,9 +86,12 @@ public class HardwareClawbot
         frontrightDrive = hwMap.get(DcMotor.class, "frontright_drive");
         backleftDrive  = hwMap.get(DcMotor.class, "backleft_drive");
         backrightDrive = hwMap.get(DcMotor.class, "backright_drive");
+        liftDrive = hwMap.get(DcMotor.class, "lift");
+
         arm            = hwMap.get(Servo.class,"arm");
         rightClaw      = hwMap.get(Servo.class,"claw_right");
         leftClaw       = hwMap.get(Servo.class,"claw_left");
+
 
         frontleftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         frontrightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
@@ -100,6 +103,7 @@ public class HardwareClawbot
         frontrightDrive.setPower(0);
         backleftDrive.setPower(0);
         backrightDrive.setPower(0);
+        liftDrive.setPower(0);
         //leftClaw.setPower(0);
         //rightClaw.setPower(0);
 
@@ -109,11 +113,11 @@ public class HardwareClawbot
         frontrightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backleftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backrightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
         arm.setPosition(MID_SERVO);
-
     }
 
     // Function "forward"
@@ -139,8 +143,6 @@ public class HardwareClawbot
         frontrightDrive.setPower(0);
         backrightDrive.setPower(0);
         backleftDrive.setPower(0);
-        //leftClaw.setPosition(MID_SERVO);
-        //rightClaw.setPosition(MID_SERVO);
     }
 
     void backward(double speed, double secondsToRun){

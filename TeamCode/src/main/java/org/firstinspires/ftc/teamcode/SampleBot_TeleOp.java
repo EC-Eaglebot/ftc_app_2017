@@ -138,9 +138,6 @@ public class SampleBot_TeleOp extends OpMode{
         telemetry.addData("front right", "%.2f", fRight);
         telemetry.addData("back left",  "%.2f", bLeft);
         telemetry.addData("back right", "%.2f", bRight);
-
-
-
     }
 
 
