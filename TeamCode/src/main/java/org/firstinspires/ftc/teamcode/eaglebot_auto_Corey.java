@@ -22,7 +22,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @Autonomous(name="Eaglebot: Corey", group="Eaglebot")
-//@Disabled
+@Disabled
 public class eaglebot_auto_Corey extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -62,10 +62,10 @@ public class eaglebot_auto_Corey extends LinearOpMode {
         runtime.reset();
 
         // very basic "just get into the right spot" autonomous mode
-        robot.turnDegree(-90);
-        robot.forward(HardwareClawbot.standardSpeed,3);
-        robot.turnDegree(-90);
-        robot.forward(HardwareClawbot.standardSpeed, 1);
+        robot.turnDegree(-90, runtime);
+        robot.forward(HardwareClawbot.standardSpeed,3, runtime);
+        robot.turnDegree(-90, runtime);
+        robot.forward(HardwareClawbot.standardSpeed, 1, runtime);
 
         // program script
 

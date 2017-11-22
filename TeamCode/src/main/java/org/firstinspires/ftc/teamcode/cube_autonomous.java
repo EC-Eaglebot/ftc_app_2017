@@ -65,9 +65,9 @@ public class cube_autonomous extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            robot.turnRight();
+            robot.turnRight(runtime);
             robot.arm.setPosition(robot.MID_SERVO);
-            robot.forward(.1,.1);
+            robot.forward(.1,.1, runtime);
             robot.arm.setPosition(0);
 
 

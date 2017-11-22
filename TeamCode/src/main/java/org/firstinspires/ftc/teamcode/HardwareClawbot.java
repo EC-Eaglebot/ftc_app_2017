@@ -73,7 +73,6 @@ public class HardwareClawbot
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
-    private ElapsedTime runtime  = new ElapsedTime();
 
     /* Constructor */
     public HardwareClawbot(){
@@ -125,7 +124,7 @@ public class HardwareClawbot
 
     // Function "forward"
     // make robot move forward at specified speed
-    void forward(double speed, double secondsToRun) {
+    void forward(double speed, double secondsToRun, ElapsedTime runtime) {
         double end = runtime.seconds() + secondsToRun;
         frontleftDrive.setPower(-speed);
         frontrightDrive.setPower(-speed);
@@ -150,15 +149,15 @@ public class HardwareClawbot
         backleftDrive.setPower(0);
     }
 
-    void backward(double speed, double secondsToRun){
-        this.forward(-speed, secondsToRun);
+    void backward(double speed, double secondsToRun, ElapsedTime runtime){
+        this.forward(-speed, secondsToRun, runtime);
     }
 
 
     // Function "turnDegree"
     // make the robot turn a specified degree
 
-    void turnDegree(double degree){
+    void turnDegree(double degree, ElapsedTime runtime){
         double end = (degree / 0.5) + runtime.seconds();
         // since angle = angular velocity * time,
         // time = angle / velocity
@@ -178,14 +177,14 @@ public class HardwareClawbot
         backleftDrive.setPower(0);
     }
 
-    void liftDrive_up () {
+    void liftDrive_up (ElapsedTime runtime) {
        liftDrive.setPower(1);
        while (runtime.seconds() < 5) {
            liftDrive.setPower(0.5);
        }
        liftDrive.setPower(0);
     }
-    void liftDrive_down () {
+    void liftDrive_down (ElapsedTime runtime) {
         runtime.reset();
         while (runtime.seconds() < 5) {
             liftDrive.setPower(-0.5);
@@ -195,17 +194,17 @@ public class HardwareClawbot
     void liftDrive_test () {
         liftDrive.setPower(0.5);
     }
-    void turnAround() {
-        turnDegree(180);
+    void turnAround(ElapsedTime runtime) {
+        turnDegree(180, runtime);
     }
-    void turnRight(){
-        turnDegree(90);
+    void turnRight(ElapsedTime runtime){
+        turnDegree(90, runtime);
     }
-    void turnleft(){
-        turnDegree(-90);
+    void turnleft(ElapsedTime runtime){
+        turnDegree(-90, runtime);
     }
 
-    void stopAndWait(double secondsToWait) {
+    void stopAndWait(double secondsToWait, ElapsedTime runtime) {
         stopMoving();
         double endTime = runtime.seconds() + secondsToWait;
         while (runtime.seconds() < endTime) { }

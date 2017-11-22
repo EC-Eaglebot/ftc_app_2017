@@ -77,12 +77,12 @@ public class safezone_autonomous_blue extends LinearOpMode {
         while (opModeIsActive()) {
             runtime.reset();
             telemetry.addData("Status", "Forward");
-            robot.forward(go, 1);
+            robot.forward(go, 1, runtime);
             telemetry.addData("Status", "Turning");
-            robot.turnDegree(-90);
+            robot.turnDegree(-90, runtime);
             runtime.reset();
             telemetry.addData("Status", "Forward");
-            robot.forward(go, 2);
+            robot.forward(go, 2, runtime);
             robot.stopMoving();
 
         }
