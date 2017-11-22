@@ -102,7 +102,7 @@ public class eaglebot_half_power extends LinearOpMode {
             bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
             fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
             bLeft = gamepad1.left_stick_y - gamepad1.right_stick_x + gamepad1.left_stick_x;
-            liftUp = gamepad1.right_trigger - gamepad1.left_trigger;
+            liftUp = gamepad1.right_trigger;
 
 
             robot.frontleftDrive.setPower(fLeft / 2);
@@ -114,6 +114,8 @@ public class eaglebot_half_power extends LinearOpMode {
             // Use gamepad left & right Bumpers to open and close the claw
             if (gamepad1.right_bumper)
                 clawOffset += CLAW_SPEED;
+            if (gamepad1.left_bumper)
+                clawOffset -= CLAW_SPEED;
             // Move both servos to new position.  Assume servos are mirror image of each other.
             clawOffset = Range.clip(clawOffset, -0.5, 0.5);
             robot.leftClaw.setPosition(robot.MID_SERVO + clawOffset);
