@@ -33,6 +33,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
  * This is NOT an opmode.
@@ -109,10 +112,10 @@ public class HardwareClawbot
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        frontleftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontrightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backleftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backrightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontleftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontrightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backleftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backrightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftClaw.setPosition(MID_SERVO);
@@ -128,7 +131,9 @@ public class HardwareClawbot
         frontrightDrive.setPower(-speed);
         backrightDrive.setPower(-speed);
         backleftDrive.setPower(-speed);
+
         while (end > runtime.seconds()){ } // wait
+
         frontleftDrive.setPower(0);
         frontrightDrive.setPower(0);
         backrightDrive.setPower(0);

@@ -155,6 +155,10 @@ public class SensorColor extends LinearOpMode {
       /** We also display a conversion of the colors to an equivalent Android color integer.
        * @see Color */
 
+
+
+      /*
+
       int color = colors.toColor();
       telemetry.addLine("raw Android color: ")
               .addData("a", "%02x", Color.alpha(color))
@@ -196,6 +200,7 @@ public class SensorColor extends LinearOpMode {
           relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
         }
       });
+      */
     }
   }
 }

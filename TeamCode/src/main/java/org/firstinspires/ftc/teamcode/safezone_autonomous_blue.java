@@ -56,7 +56,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="Safezone Blue", group="TestBot")
+@TeleOp(name="Safezone Blue:Left", group="TestBot")
 public class safezone_autonomous_blue extends LinearOpMode {
     static HardwareClawbot robot = new HardwareClawbot();
 
@@ -71,15 +71,23 @@ public class safezone_autonomous_blue extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        double go = HardwareClawbot.standardSpeed;
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             runtime.reset();
-            robot.turnleft();
+            telemetry.addData("Status", "Forward");
+            robot.forward(go, 1);
+            telemetry.addData("Status", "Turning");
+            robot.turnDegree(-90);
             runtime.reset();
-            robot.forward(HardwareClawbot.standardSpeed, 1);
-            }
+            telemetry.addData("Status", "Forward");
+            robot.forward(go, 2);
+            robot.stopMoving();
+
+        }
             
             //pick up cube here
-        }
     }
+}
 

@@ -97,6 +97,7 @@ public class eaglebot_half_power extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+
             fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
             bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
             fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
@@ -113,14 +114,11 @@ public class eaglebot_half_power extends LinearOpMode {
             // Use gamepad left & right Bumpers to open and close the claw
             if (gamepad1.right_bumper)
                 clawOffset += CLAW_SPEED;
-            else if (gamepad1.left_bumper)
-                clawOffset -= CLAW_SPEED;
-
-
             // Move both servos to new position.  Assume servos are mirror image of each other.
             clawOffset = Range.clip(clawOffset, -0.5, 0.5);
             robot.leftClaw.setPosition(robot.MID_SERVO + clawOffset);
             robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
+
 
             // Use gamepad buttons to move the arm up (Y) and down (A)
             if (gamepad1.y) {
@@ -144,6 +142,12 @@ public class eaglebot_half_power extends LinearOpMode {
             telemetry.addData("front right", "%.2f", fRight);
             telemetry.addData("back left",  "%.2f", bLeft);
             telemetry.addData("back right", "%.2f", bRight);
+            telemetry.addData("Path0",  "Starting at fl%7d fr%7d bl%7d br%7d",
+                    robot.frontleftDrive.getCurrentPosition(),
+                    robot.frontrightDrive.getCurrentPosition(),
+                    robot.backleftDrive.getCurrentPosition(),
+                    robot.backrightDrive.getCurrentPosition());
+            telemetry.update();
 
         }
         /* leftDrive.setPower(0);
