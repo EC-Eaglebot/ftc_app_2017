@@ -124,10 +124,10 @@ public class HardwareClawbot
     // make robot move forward at specified speed
     void forward(double speed, double secondsToRun) {
         double end = runtime.seconds() + secondsToRun;
-        frontleftDrive.setPower(speed);
-        frontrightDrive.setPower(speed);
-        backrightDrive.setPower(speed);
-        backleftDrive.setPower(speed);
+        frontleftDrive.setPower(-speed);
+        frontrightDrive.setPower(-speed);
+        backrightDrive.setPower(-speed);
+        backleftDrive.setPower(-speed);
         while (end > runtime.seconds()){ } // wait
         frontleftDrive.setPower(0);
         frontrightDrive.setPower(0);

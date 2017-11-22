@@ -31,15 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Hardware;
-
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
 /**
@@ -56,8 +48,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="Safezone Blue", group="TestBot")
-public class safezone_autonomous_blue extends LinearOpMode {
+@TeleOp(name="Cube", group="TestBot")
+public class cube_autonomous extends LinearOpMode {
     static HardwareClawbot robot = new HardwareClawbot();
 
     // Declare OpMode members.
@@ -73,13 +65,14 @@ public class safezone_autonomous_blue extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            runtime.reset();
-            robot.turnleft();
-            runtime.reset();
-            robot.forward(HardwareClawbot.standardSpeed, 1);
-            }
+            robot.turnRight();
+            robot.arm.setPosition(robot.MID_SERVO);
+            robot.forward(.1,.1);
+            robot.arm.setPosition(0);
+
+
             
             //pick up cube here
         }
     }
-
+}
