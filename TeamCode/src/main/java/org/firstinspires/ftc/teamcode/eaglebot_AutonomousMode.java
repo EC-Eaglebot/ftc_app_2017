@@ -57,7 +57,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
 @TeleOp(name="official_autonomous_mode", group="TestBot")
-//@Disabled
+@Disabled
 public class eaglebot_AutonomousMode extends LinearOpMode {
     static HardwareSampleBot robot       = new HardwareSampleBot(); // use the class created to define a Pushbot's hardware
     // could also use HardwarePushbotMatrix class.

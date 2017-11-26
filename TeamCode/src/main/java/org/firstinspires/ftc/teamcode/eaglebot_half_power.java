@@ -49,7 +49,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 
-@TeleOp(name="Half Power", group="TeleOp")
+@TeleOp(name="Half Power", group="Competition")
 //@Disabled
 public class eaglebot_half_power extends LinearOpMode {
     static HardwareClawbot robot       = new HardwareClawbot(); // use the class created to define a Pushbot's hardware

@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -48,7 +50,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 
-@TeleOp(name="Cube", group="TestBot")
+@Autonomous(name="Auto:Cube", group ="Test")
+@Disabled
 public class cube_autonomous extends LinearOpMode {
     static HardwareClawbot robot = new HardwareClawbot();
 
@@ -65,10 +68,10 @@ public class cube_autonomous extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            robot.turnRight(runtime);
-            robot.arm.setPosition(robot.MID_SERVO);
-            robot.forward(.1,.1, runtime);
-            robot.arm.setPosition(0);
+            //robot.turnRight(runtime);
+            //robot.arm.setPosition(robot.MID_SERVO);
+            robot.forward(.1,.5, runtime);
+            //robot.arm.setPosition(0);
 
 
             

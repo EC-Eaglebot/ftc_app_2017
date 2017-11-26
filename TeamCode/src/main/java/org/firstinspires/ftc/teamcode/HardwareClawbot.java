@@ -117,9 +117,9 @@ public class HardwareClawbot
         backrightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftClaw.setPosition(MID_SERVO);
-        rightClaw.setPosition(MID_SERVO);
-        arm.setPosition(MID_SERVO);
+        //leftClaw.setPosition(MID_SERVO);
+        //rightClaw.setPosition(MID_SERVO);
+        //arm.setPosition(MID_SERVO);
     }
 
     // Function "forward"
