@@ -75,20 +75,14 @@ public class safezone_autonomous_blue extends LinearOpMode {
 
         double go = HardwareClawbot.standardSpeed;
 
-        // run until the end of the match (driver presses STOP)
-        //while (opModeIsActive()) {
+
             runtime.reset();
             telemetry.addData("Status", "Forward");
             robot.forward(go, 1, runtime);
-            //telemetry.addData("Status", "Turning");
-            //robot.turnDegree(-90, runtime);
+            telemetry.addData("Status", "Turning");
+            robot.turnDegree(-90, runtime);
             runtime.reset();
-            //telemetry.addData("Status", "Forward");
-            //robot.forward(go, 1, runtime);
             robot.stopMoving();
-            //while (true){
-                //do nothing for rest of autonomous)
-            //}
 
         //}
             
