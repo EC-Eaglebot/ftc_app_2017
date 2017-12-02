@@ -1,8 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
+import com.qualcomm.robotcore.hardware.SwitchableLight;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -21,57 +26,83 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Eaglebot: Steen", group="Eaglebot")
-@Disabled
-public class eaglebot_auto_Steen extends LinearOpMode {
+//@Autonomous(name="Eaglebot: Steen", group="Eaglebot")
+//@Disabled
+//public class eaglebot_auto_Steen extends LinearOpMode {
 
-    /* Declare OpMode members. */
-    HardwareSampleBot     robot   = new HardwareSampleBot();
+/*this is not working...
+    static HardwareClawbot robot   = new HardwareClawBot();
+
+
+    // Declare OpMode members.
+
     private ElapsedTime     runtime = new ElapsedTime();
 
+
+//this stuff gets the light sensor ready, taken from the sample SensorColor opMode
+    NormalizedColorSensor colorSensor;
+    float[] hsvValues = new float[3];
+    final float values[] = hsvValues;
+
+    // Get a reference to our sensor object.
+   // colorSensor = hardwareMap.get(NormalizedColorSensor.class, "color_sensor");
+
+    // If possible, turn the light on in the beginning (it might already be on anyway,
+    // we just make sure it is if we can).
 
 
     @Override
     public void runOpMode() {
 
 
-        /*
-         * Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
 
+        robot.init(hardwareMap);
+        double HUE_THRESHOLD = 500;
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
 
+        //turns the light on color sensor
+        if (colorSensor instanceof SwitchableLight) {
+            ((SwitchableLight)colorSensor).enableLight(true);
+        }
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        // When the start button is pressed, the rest of the code will execute.
-        // You want to put the actions under here. At the end of the file are
-        // functions that will allow the robot to perform certain actions.
-        // If you want a new action, talk to Cassidy, Corey, or Mr. Steen
-        // and we will give you a hand.
-        // Right now the code is executing "Eaglebot: Center Ball". You'll want
-        // to make the code between // START and // END whatever you want the
-        // robot to do.
 
-        // START
 
         robot.stopMoving();
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 8)) {
-            telemetry.addData("Stopped", runtime.seconds());
+
+        //moves the arm to the down position and reads the
+        robot.arm.setPosition(MID_SERVO - .5);
+        // Read the sensor
+        NormalizedRGBA colors = colorSensor.getNormalizedColors();
+        Color.colorToHSV(colors.toColor(), hsvValues);
+
+
+        telemetry.addLine()
+                .addData("H", "%.3f", hsvValues[0])
+                .addData("S", "%.3f", hsvValues[1])
+                .addData("V", "%.3f", hsvValues[2]);
+        telemetry.update();
+        sleep(3000);
+
+
+        if (hsvValues[0] > HUE_THRESHOLD){
+            robot.strafeLeft(.5,.2, runtime);
+            telemetry.addLine("BLUES CLUES");
             telemetry.update();
+            sleep(3000);
         }
-        robot.forward(0.5);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
-            telemetry.addData("Moving Forward", runtime.seconds());
+        else {
+            robot.strafeRight(.5 , .2, runtime);
+            telemetry.addLine("REDRUM REDRUM");
             telemetry.update();
+            sleep(3000);
         }
         robot.stopMoving();
-
+        robot.forward(0.5, 1, runtime);
+        robot.stopMoving();
         // END
 
         // Below here is where the robot will stop and go to sleep. Make
@@ -81,7 +112,8 @@ public class eaglebot_auto_Steen extends LinearOpMode {
         telemetry.update();
         sleep(1000);
     }
-}
+     */
+//}
 // TOOLBOX OF FUNCTIONS
 // *********************
 /*

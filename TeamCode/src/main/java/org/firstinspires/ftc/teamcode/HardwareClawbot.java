@@ -153,7 +153,35 @@ public class HardwareClawbot
         this.forward(-speed, secondsToRun, runtime);
     }
 
+    //function strafeLeft and strafeRight move directly left/right using speed
+    void strafeLeft(double speed, double secondsToRun, ElapsedTime runtime) {
+        double end = runtime.seconds() + secondsToRun;
+        frontleftDrive.setPower(speed);
+        frontrightDrive.setPower(-speed);
+        backrightDrive.setPower(speed);
+        backleftDrive.setPower(-speed);
 
+        while (end > runtime.seconds()){ } // wait
+
+        frontleftDrive.setPower(0);
+        frontrightDrive.setPower(0);
+        backrightDrive.setPower(0);
+        backleftDrive.setPower(0);
+    }
+    void strafeRight(double speed, double secondsToRun, ElapsedTime runtime) {
+        double end = runtime.seconds() + secondsToRun;
+        frontleftDrive.setPower(-speed);
+        frontrightDrive.setPower(speed);
+        backrightDrive.setPower(-speed);
+        backleftDrive.setPower(speed);
+
+        while (end > runtime.seconds()){ } // wait
+
+        frontleftDrive.setPower(0);
+        frontrightDrive.setPower(0);
+        backrightDrive.setPower(0);
+        backleftDrive.setPower(0);
+    }
     // Function "turnDegree"
     // make the robot turn a specified degree
 
