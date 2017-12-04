@@ -22,7 +22,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @Autonomous(name="Eaglebot: Shirley", group="Eaglebot")
-@Disabled
+//@Disabled
 public class eaglebot_auto_Shirley extends LinearOpMode {
 
     /* Declare OpMode members. */

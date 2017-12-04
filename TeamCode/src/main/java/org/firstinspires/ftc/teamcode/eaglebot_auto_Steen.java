@@ -26,17 +26,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-//@Autonomous(name="Eaglebot: Steen", group="Eaglebot")
-//@Disabled
-//public class eaglebot_auto_Steen extends LinearOpMode {
-
-/*this is not working...
-    static HardwareClawbot robot   = new HardwareClawBot();
-
+@Autonomous(name="Eaglebot: Steen", group="Eaglebot")
+public class eaglebot_auto_Steen extends LinearOpMode {
 
     // Declare OpMode members.
-
+    HardwareClawbot     robot   = new HardwareClawbot();
     private ElapsedTime     runtime = new ElapsedTime();
+
 
 
 //this stuff gets the light sensor ready, taken from the sample SensorColor opMode
@@ -53,8 +49,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
     @Override
     public void runOpMode() {
-
-
 
         robot.init(hardwareMap);
         double HUE_THRESHOLD = 500;
@@ -74,7 +68,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
         runtime.reset();
 
         //moves the arm to the down position and reads the
-        robot.arm.setPosition(MID_SERVO - .5);
+        robot.arm.setPosition(robot.MID_SERVO - .5);
         // Read the sensor
         NormalizedRGBA colors = colorSensor.getNormalizedColors();
         Color.colorToHSV(colors.toColor(), hsvValues);
@@ -112,8 +106,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
         telemetry.update();
         sleep(1000);
     }
-     */
-//}
+
+}
 // TOOLBOX OF FUNCTIONS
 // *********************
 /*
