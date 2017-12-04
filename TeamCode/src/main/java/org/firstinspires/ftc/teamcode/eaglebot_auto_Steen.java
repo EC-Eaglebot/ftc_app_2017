@@ -51,7 +51,8 @@ public class eaglebot_auto_Steen extends LinearOpMode {
     public void runOpMode() {
 
         robot.init(hardwareMap);
-        double HUE_THRESHOLD = 500;
+        double RED_FLOOR_THRESHOLD = 300;
+        double RED_CEILING_THRESHOLD = 60;
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
@@ -81,13 +82,13 @@ public class eaglebot_auto_Steen extends LinearOpMode {
         telemetry.update();
         sleep(3000);
 
-
-        if (hsvValues[0] > HUE_THRESHOLD){
+        // if blue
+        if (hsvValues[0] < RED_FLOOR_THRESHOLD || hsvValues[0] > RED_CEILING_THRESHOLD ){
             robot.strafeLeft(.5,.2, runtime);
             telemetry.addLine("BLUES CLUES");
             telemetry.update();
             sleep(3000);
-        }
+        } // if red
         else {
             robot.strafeRight(.5 , .2, runtime);
             telemetry.addLine("REDRUM REDRUM");
