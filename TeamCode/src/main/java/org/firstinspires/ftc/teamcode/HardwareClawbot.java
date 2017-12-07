@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -64,6 +65,7 @@ public class HardwareClawbot
     public Servo arm = null;
     public Servo rightClaw = null;
     public Servo leftClaw = null;
+    public ColorSensor color;
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double CLAW_SPEED  = 0.02 ;
@@ -83,6 +85,7 @@ public class HardwareClawbot
         // Save reference to Hardware map
         hwMap = ahwMap;
 
+        //ColorSensor color;
         // Define and Initialize Motors
         frontleftDrive  = hwMap.get(DcMotor.class, "frontleft_drive");
         frontrightDrive = hwMap.get(DcMotor.class, "frontright_drive");
@@ -93,6 +96,7 @@ public class HardwareClawbot
         arm            = hwMap.get(Servo.class,"arm");
         rightClaw      = hwMap.get(Servo.class,"claw_right");
         leftClaw       = hwMap.get(Servo.class,"claw_left");
+        color = hwMap.colorSensor.get("color_sensor");
 
 
         frontleftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
