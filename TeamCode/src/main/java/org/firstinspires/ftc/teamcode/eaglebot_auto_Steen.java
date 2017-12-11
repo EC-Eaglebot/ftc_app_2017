@@ -59,13 +59,15 @@ public class eaglebot_auto_Steen extends LinearOpMode {
         //robot.color_sensor.alpha(); // Total luminosity
         //robot.color_sensor.argb();  // Combined color value
 
-
-
-        telemetry.addLine()
-                .addData("R", "%.3f", robot.color.red())
-                .addData("G", "%.3f", robot.color.green())
-                .addData("B", "%.3f", robot.color.blue());
-        telemetry.update();
+        int i=0;
+      while (i<100000) {
+            i++;
+            telemetry.addLine()
+                    .addData("R", "%d", robot.color.red())
+                    .addData("G", "%d", robot.color.green())
+                    .addData("B", "%d", robot.color.blue());
+            telemetry.update();
+        }
         sleep(3000);
 
         // if blue
