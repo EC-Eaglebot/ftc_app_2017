@@ -35,8 +35,9 @@ public class eaglebot_auto_Steen extends LinearOpMode {
     public void runOpMode() {
 
         robot.init(hardwareMap);
-        double RED_FLOOR_THRESHOLD = 300;
-        double RED_CEILING_THRESHOLD = 60;
+       // double RED_FLOOR_THRESHOLD = 300;
+        // double RED_CEILING_THRESHOLD = 60;
+        double red_qualifier = 30;
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
@@ -46,11 +47,11 @@ public class eaglebot_auto_Steen extends LinearOpMode {
         waitForStart();
 
 
-        robot.stopMoving();
-        runtime.reset();
+        //robot.stopMoving();
+        //runtime.reset();
 
         //moves the arm to the down position and reads the
-        robot.arm.setPosition(robot.MID_SERVO - .5);
+        robot.arm.setPosition(.8);
         // Read the sensor
         //robot.color.red();   // Red channel value
         //robot.color_sensor.green(); // Green channel value
@@ -58,20 +59,32 @@ public class eaglebot_auto_Steen extends LinearOpMode {
 
         //robot.color_sensor.alpha(); // Total luminosity
         //robot.color_sensor.argb();  // Combined color value
-
-        int i=0;
-      while (i<100000) {
-            i++;
+    runtime.reset();
+      while (runtime.seconds() < 2) {
             telemetry.addLine()
                     .addData("R", "%d", robot.color.red())
                     .addData("G", "%d", robot.color.green())
                     .addData("B", "%d", robot.color.blue());
             telemetry.update();
         }
-        sleep(3000);
+
 
         // if blue
-        if (robot.color.red() < RED_FLOOR_THRESHOLD || robot.color.red() > RED_CEILING_THRESHOLD ){
+       /* if (robot.color.red() < RED_FLOOR_THRESHOLD || robot.color.red() > RED_CEILING_THRESHOLD ){
+            robot.strafeLeft(.5,.2, runtime);
+            telemetry.addLine("BLUES CLUES");
+            telemetry.update();
+            sleep(3000);
+        } // if red
+        else {
+            robot.strafeRight(.5 , .2, runtime);
+            telemetry.addLine("REDRUM REDRUM");
+            telemetry.update();
+            sleep(3000);
+        } */
+
+        // Phase I: Read jewel color, knock off correct one
+        if (robot.color.red() < red_qualifier){
             robot.strafeLeft(.5,.2, runtime);
             telemetry.addLine("BLUES CLUES");
             telemetry.update();
@@ -83,7 +96,17 @@ public class eaglebot_auto_Steen extends LinearOpMode {
             telemetry.update();
             sleep(3000);
         }
+
+        // Phase II: Grab glyph, turn toward glyph wall, and move toward it
+        robot.closeClaws(runtime);
+        robot.turnRight(runtime);
+        robot.forward(0.5,2,runtime);
+
+        // End
         robot.stopMoving();
+
+
+
         //robot.forward(0.5, 1, runtime);
         //robot.stopMoving();
         // END

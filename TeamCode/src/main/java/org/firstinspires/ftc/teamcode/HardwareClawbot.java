@@ -223,6 +223,16 @@ public class HardwareClawbot
         }
         liftDrive.setPower(0);
     }
+
+    void openClaws(ElapsedTime runtime){
+        leftClaw.setPosition(1);
+        rightClaw.setPosition(0);
+    }
+    void closeClaws(ElapsedTime runtime){
+        leftClaw.setPosition(0);
+        rightClaw.setPosition(1);
+    }
+
     void liftDrive_test () {
         liftDrive.setPower(0.5);
     }
