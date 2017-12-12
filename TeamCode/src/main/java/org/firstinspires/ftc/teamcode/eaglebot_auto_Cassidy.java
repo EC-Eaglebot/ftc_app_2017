@@ -56,7 +56,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="cassidy_auto", group="TestBot")
+@TeleOp(name="cassidy_auto", group="Test")
 @Disabled
 public class eaglebot_auto_Cassidy extends LinearOpMode {
     static HardwareSampleBot robot       = new HardwareSampleBot(); // use the class created to define a Pushbot's hardware

@@ -29,17 +29,10 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
 /**
@@ -56,14 +49,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="Full Power", group="Competition")
+@TeleOp(name="2 Driver Eaglebot", group="Competition")
 //@Disabled
-public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
+public class teleop_2_driver_mode extends LinearOpMode {
     static HardwareClawbot robot       = new HardwareClawbot(); // use the class created to define a Pushbot's hardware
     // could also use HardwarePushbotMatrix class.
-    double    clawOffset  = 0.0 ;                  // Servo mid position
+    double    clawOffset_right  = 0.0 ;
+    double    clawOffset_left  = 0.0 ;  // Servo mid position
     double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
-
+    double    power  = 0.5;
+    boolean   shiftup = false;
+    boolean   shiftdown = false;
     /*
      * Code to run ONCE Bhen the driver hits INIT
      */
@@ -111,23 +107,33 @@ public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
             liftUp = gamepad1.right_trigger - gamepad1.left_trigger;
 
 
-            robot.frontleftDrive.setPower(fLeft);
-            robot.frontrightDrive.setPower(fRight);
-            robot.backleftDrive.setPower(bLeft);
-            robot.backrightDrive.setPower(bRight);
-            robot.liftDrive.setPower(liftUp);
+            robot.frontleftDrive.setPower(fLeft * power);
+            robot.frontrightDrive.setPower(fRight * power);
+            robot.backleftDrive.setPower(bLeft * power);
+            robot.backrightDrive.setPower(bRight * power);
+            robot.liftDrive.setPower(liftUp * power);
 
             // Use gamepad left & right Bumpers to open and close the claw
             if (gamepad1.right_bumper)
-                clawOffset += CLAW_SPEED;
+            {clawOffset_right += CLAW_SPEED;
+                clawOffset_left += CLAW_SPEED;}
             else if (gamepad1.left_bumper)
-                clawOffset -= CLAW_SPEED;
-
+            {clawOffset_right -= CLAW_SPEED;
+                clawOffset_left -= CLAW_SPEED;}
+            if (gamepad2.right_bumper)
+                clawOffset_right += CLAW_SPEED;
+            else if (gamepad2.left_bumper)
+                clawOffset_left -= CLAW_SPEED;
 
             // Move both servos to new position.  Assume servos are mirror image of each other.
-            clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-            robot.leftClaw.setPosition(robot.MID_SERVO + clawOffset);
-            robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
+            //clawOffset = Range.clip(clawOffset, -0.5, 0.5);
+            //robot.leftClaw.setPosition(robot.MID_SERVO + clawOffset);
+            //robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
+            clawOffset_right = Range.clip(clawOffset_right, -0.5, 0.5);
+            clawOffset_left = Range.clip(clawOffset_left, -0.5, 0.5);
+            robot.leftClaw.setPosition(robot.MID_SERVO + clawOffset_left);
+            robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset_right);
+
 
             // Use gamepad buttons to move the arm up (Y) and down (A)
             if (gamepad1.y) {
@@ -141,16 +147,34 @@ public class eaglebot_teleop_motors_and_claws extends LinearOpMode {
             //}
 
 
+            //driver2 shifts power
+            if (gamepad2.a && !shiftup) shiftup = true;
+            else if (!gamepad2.a) shiftup = false;
+            if (gamepad2.y && !shiftdown) shiftdown = true;
+            else if (!gamepad2.y) shiftdown = false;
+
+            if (shiftup)
+                {
+                    if (power < 1.0) power += .25;
+
+                }
+            if (shiftdown)
+            {
+                    if (power > 0.0) power -= .25;
+
+            }
 
             //else
             //    robot.arm.setPosition(robot.MID_SERVO - .5);
 
             // Send telemetry message to signify robot running;
-            telemetry.addData("claw",  "Offset = %.2f", clawOffset);
+            telemetry.addData("power",  "%.2f", power);
+            telemetry.addData("claw",  "Offset = %.2f", clawOffset_right);
             telemetry.addData("front left",  "%.2f", fLeft);
             telemetry.addData("front right", "%.2f", fRight);
             telemetry.addData("back left",  "%.2f", bLeft);
             telemetry.addData("back right", "%.2f", bRight);
+            telemetry.update();
 
         }
         /* leftDrive.setPower(0);

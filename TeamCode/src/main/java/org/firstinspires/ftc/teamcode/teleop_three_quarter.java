@@ -49,9 +49,9 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 
-@TeleOp(name="_Three Quarter", group="Competition")
+@TeleOp(name="Three Quarter", group="Competition")
 //@Disabled
-public class eaglebot_three_quarter extends LinearOpMode {
+public class teleop_three_quarter extends LinearOpMode {
     static HardwareClawbot robot       = new HardwareClawbot(); // use the class created to define a Pushbot's hardware
     // could also use HardwarePushbotMatrix class.
     double    clawOffset  = 0.0 ;                  // Servo mid position

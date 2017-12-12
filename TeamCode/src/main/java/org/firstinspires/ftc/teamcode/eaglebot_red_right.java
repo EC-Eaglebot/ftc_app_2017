@@ -14,8 +14,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 
-@Autonomous(name="Eaglebot: Steen", group="Eaglebot")
-public class eaglebot_auto_Steen extends LinearOpMode {
+@Autonomous(name="Red Team Right Stone", group="Competition")
+public class eaglebot_red_right extends LinearOpMode {
 
     // Declare OpMode members.
     HardwareClawbot     robot   = new HardwareClawbot();
