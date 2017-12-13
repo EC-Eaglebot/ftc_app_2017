@@ -194,15 +194,16 @@ public class HardwareClawbot
     // make the robot turn a specified degree
 
     void turnDegree(double degree, ElapsedTime runtime){
-        double end = (degree / 0.5) + runtime.seconds();
+        runtime.reset();
+        double end = (degree / 90);
         // since angle = angular velocity * time,
         // time = angle / velocity
         if (degree > 0) {
-            frontrightDrive.setPower(-0.5);
-            backrightDrive.setPower(-0.5);
+            frontrightDrive.setPower(0.5);
+            backrightDrive.setPower(0.5);
         } else if (degree < 0) {
-            frontleftDrive.setPower(-0.5);
-            backleftDrive.setPower(-0.5);
+            frontleftDrive.setPower(0.5);
+            backleftDrive.setPower(0.5);
         }
 
         while (end > runtime.seconds()) { } // let the runtime go
@@ -223,7 +224,7 @@ public class HardwareClawbot
     void liftDrive_down (ElapsedTime runtime) {
         runtime.reset();
         while (runtime.seconds() < 5) {
-            liftDrive.setPower(-0.5);
+            liftDrive.setPower(-0.2);
         }
         liftDrive.setPower(0);
     }

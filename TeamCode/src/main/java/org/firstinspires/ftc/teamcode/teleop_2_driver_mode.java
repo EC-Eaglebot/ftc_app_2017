@@ -111,7 +111,7 @@ public class teleop_2_driver_mode extends LinearOpMode {
             robot.frontrightDrive.setPower(fRight * power);
             robot.backleftDrive.setPower(bLeft * power);
             robot.backrightDrive.setPower(bRight * power);
-            robot.liftDrive.setPower(liftUp * power);
+            robot.liftDrive.setPower(liftUp);
 
             // Use gamepad left & right Bumpers to open and close the claw
             if (gamepad1.right_bumper)
@@ -142,25 +142,28 @@ public class teleop_2_driver_mode extends LinearOpMode {
             else if (gamepad1.a) {
                 robot.arm.setPosition(robot.MID_SERVO - .5);
             }
+
             //if (gamepad1.left_trigger > 0) {
             //    robot.liftDrive_down();
             //}
 
 
             //driver2 shifts power
-            if (gamepad2.a && !shiftup) shiftup = true;
-            else if (!gamepad2.a) shiftup = false;
-            if (gamepad2.y && !shiftdown) shiftdown = true;
-            else if (!gamepad2.y) shiftdown = false;
+            if (gamepad2.y && !shiftup) shiftup = true;
+            else if (!gamepad2.y) shiftup = false;
+            if (gamepad2.a && !shiftdown) shiftdown = true;
+            else if (!gamepad2.a) shiftdown = false;
 
             if (shiftup)
                 {
                     if (power < 1.0) power += .25;
+                    shiftup = false;
 
                 }
             if (shiftdown)
             {
                     if (power > 0.0) power -= .25;
+                    shiftdown = true;
 
             }
 

@@ -99,8 +99,9 @@ public class eaglebot_red_right extends LinearOpMode {
 
         // Phase II: Grab glyph, turn toward glyph wall, and move toward it
         robot.closeClaws(runtime);
+        robot.forward(0.25,2,runtime);
         robot.turnRight(runtime);
-        robot.forward(0.5,2,runtime);
+        robot.forward(0.5,2.5,runtime);
 
         // End
         robot.stopMoving();
