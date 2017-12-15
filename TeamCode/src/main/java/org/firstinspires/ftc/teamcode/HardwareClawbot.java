@@ -183,6 +183,35 @@ public class HardwareClawbot
         backrightDrive.setPower(-speed);
         backleftDrive.setPower(speed);
 
+        while (end > runtime.seconds()) {
+        } // wait
+
+        frontleftDrive.setPower(0);
+        frontrightDrive.setPower(0);
+        backrightDrive.setPower(0);
+        backleftDrive.setPower(0);
+    }
+    void spinRight(double speed, double secondsToRun, ElapsedTime runtime) {
+        double end = runtime.seconds() + secondsToRun;
+        frontleftDrive.setPower(-speed);
+        frontrightDrive.setPower(speed);
+        backrightDrive.setPower(speed);
+        backleftDrive.setPower(-speed);
+
+        while (end > runtime.seconds()){ } // wait
+
+        frontleftDrive.setPower(0);
+        frontrightDrive.setPower(0);
+        backrightDrive.setPower(0);
+        backleftDrive.setPower(0);
+    }
+    void spinLeft(double speed, double secondsToRun, ElapsedTime runtime) {
+        double end = runtime.seconds() + secondsToRun;
+        frontleftDrive.setPower(speed);
+        frontrightDrive.setPower(-speed);
+        backrightDrive.setPower(-speed);
+        backleftDrive.setPower(speed);
+
         while (end > runtime.seconds()){ } // wait
 
         frontleftDrive.setPower(0);
@@ -230,12 +259,12 @@ public class HardwareClawbot
     }
 
     void openClaws(ElapsedTime runtime){
-        leftClaw.setPosition(1);
-        rightClaw.setPosition(0);
-    }
-    void closeClaws(ElapsedTime runtime){
         leftClaw.setPosition(0);
         rightClaw.setPosition(1);
+    }
+    void closeClaws(ElapsedTime runtime){
+        leftClaw.setPosition(1);
+        rightClaw.setPosition(0);
     }
 
     void liftDrive_test () {

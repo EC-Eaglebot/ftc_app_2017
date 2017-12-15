@@ -29,10 +29,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 /**
@@ -49,8 +48,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  */
 
 
-@Autonomous(name="Safezone Red:Right", group="Competition")
-public class safezone_autonomous_red_right extends LinearOpMode {
+@Autonomous(name="Arm Hit", group="Test")
+public class auto_colortest extends LinearOpMode {
     static HardwareClawbot robot = new HardwareClawbot();
 
     // Declare OpMode members.
@@ -66,24 +65,30 @@ public class safezone_autonomous_red_right extends LinearOpMode {
 
         double go = HardwareClawbot.standardSpeed;
 
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
+       //steps for the autonomous
             runtime.reset();
-            telemetry.addData("Status", "Forward");
-            robot.forward(go, 1, runtime);
-            telemetry.addData("Status", "Turning");
-            robot.turnDegree(90, runtime);
-            runtime.reset();
-            telemetry.addData("Status", "Forward");
-            robot.forward(go, 1, runtime);
-            robot.stopMoving();
-            while (true){
-                //do nothing for rest of autonomous)
-            }
+            telemetry.addData("Step One: ", "Drop Arm (Disabled)");
+            telemetry.update();
+            robot.arm.setPosition(-1);
 
-        }
-            
-            //pick up cube here
+
+            telemetry.addData("Step Two: ", "Strafe Right");
+            telemetry.update();
+            robot.strafeRight(go*.5, .5, runtime);
+
+
+            telemetry.addData("Step Three: ", "Raise Arm (Disabled)");
+            telemetry.update();
+            robot.arm.setPosition(1);
+
+            telemetry.addData("Step Four: ", "Strafe Left to Safezone");
+            telemetry.update();
+            robot.strafeLeft(go, 1.2, runtime);
+
+
+            robot.stopMoving();
+
+
     }
 }
 

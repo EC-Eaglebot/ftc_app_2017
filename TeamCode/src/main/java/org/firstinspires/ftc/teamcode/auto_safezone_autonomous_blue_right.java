@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
  * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
@@ -48,8 +49,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  */
 
 
-@Autonomous(name="Safezone Red:Left", group="Competition")
-public class safezone_autonomous_red extends LinearOpMode {
+@Autonomous(name="Safezone Blue:Right", group="Competition")
+public class auto_safezone_autonomous_blue_right extends LinearOpMode {
     static HardwareClawbot robot = new HardwareClawbot();
 
     // Declare OpMode members.
@@ -71,7 +72,7 @@ public class safezone_autonomous_red extends LinearOpMode {
             telemetry.addData("Status", "Forward");
             robot.forward(go, 1, runtime);
             telemetry.addData("Status", "Turning");
-            robot.turnDegree(-90, runtime);
+            robot.turnDegree(90, runtime);
             runtime.reset();
             telemetry.addData("Status", "Forward");
             robot.forward(go, 1, runtime);

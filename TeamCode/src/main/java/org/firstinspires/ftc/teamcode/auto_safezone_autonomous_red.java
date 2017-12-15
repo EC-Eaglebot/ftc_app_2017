@@ -29,11 +29,10 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.DcMotor;
-
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
@@ -49,8 +48,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  */
 
 
-@Autonomous(name="Encoder Test", group="Tests")
-public class encoder_test extends LinearOpMode {
+@Autonomous(name="Safezone Red:Left", group="Competition")
+public class auto_safezone_autonomous_red extends LinearOpMode {
     static HardwareClawbot robot = new HardwareClawbot();
 
     // Declare OpMode members.
@@ -65,26 +64,23 @@ public class encoder_test extends LinearOpMode {
         runtime.reset();
 
         double go = HardwareClawbot.standardSpeed;
-        robot.frontleftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.frontrightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.backleftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.backrightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-
-        runtime.reset();
-            telemetry.addData("Status", "Forward");
-            robot.frontleftDrive.setTargetPosition(100);
-            robot.frontrightDrive.setTargetPosition(100);
-            robot.backleftDrive.setTargetPosition(100);
-            robot.backrightDrive.setTargetPosition(100);
-            robot.frontleftDrive.setPower(.5);
-            robot.frontrightDrive.setPower(.5);
-            robot.backleftDrive.setPower(.5);
-            robot.backrightDrive.setPower(.5);
+        // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
             runtime.reset();
+            telemetry.addData("Status", "Forward");
+            robot.forward(go, 1, runtime);
+            telemetry.addData("Status", "Turning");
+            robot.turnDegree(-90, runtime);
+            runtime.reset();
+            telemetry.addData("Status", "Forward");
+            robot.forward(go, 1, runtime);
             robot.stopMoving();
+            while (true){
+                //do nothing for rest of autonomous)
+            }
 
-        //}
+        }
             
             //pick up cube here
     }

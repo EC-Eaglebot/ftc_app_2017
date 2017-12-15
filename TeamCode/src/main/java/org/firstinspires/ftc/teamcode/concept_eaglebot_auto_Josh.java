@@ -3,9 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -26,10 +23,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Eaglebot: Josh", group="Test")
 @Disabled
-public class eaglebot_auto_Josh extends LinearOpMode {
+public class concept_eaglebot_auto_Josh extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareSampleBot     robot   = new HardwareSampleBot();
+    sample_HardwareSampleBot robot   = new sample_HardwareSampleBot();
     private ElapsedTime     runtime = new ElapsedTime();
 
 

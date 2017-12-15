@@ -32,7 +32,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -56,10 +55,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="official_autonomous_mode", group="TestBot")
+@TeleOp(name="cassidy_auto", group="Test")
 @Disabled
-public class eaglebot_AutonomousMode extends LinearOpMode {
-    static HardwareSampleBot robot       = new HardwareSampleBot(); // use the class created to define a Pushbot's hardware
+public class concept_eaglebot_auto_Cassidy extends LinearOpMode {
+    static sample_HardwareSampleBot robot       = new sample_HardwareSampleBot(); // use the class created to define a Pushbot's hardware
     // could also use HardwarePushbotMatrix class.
     double          clawOffset  = 0.0 ;                  // Servo mid position
     final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
@@ -71,39 +70,24 @@ public class eaglebot_AutonomousMode extends LinearOpMode {
     // Declare OpMode members.
     static ElapsedTime runtime = new ElapsedTime();
 
+    VuforiaLocalizer vuforia;
+
     @Override
     public void runOpMode() {
 
-        robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        //runtime.reset();
+       //runtime.reset();
 
+        // run until the end of the match (driver presses STOP)
         double fLeft;
         double fRight;
         double bLeft;
         double bRight;
 
-        VuforiaLocalizer vuforia;
-
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-
-        parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-
-        vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-
-        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-
-        relicTrackables.activate();
-
-        // Main loop of operation
         while (opModeIsActive()) {
 
             /*dir direction = GetGlyphDirection();
@@ -119,45 +103,66 @@ public class eaglebot_AutonomousMode extends LinearOpMode {
             }
             leftDrive.setPower(0);
             runtime.reset();
+
+
             //pick up cube here
             */
 
-            /////// NOTE: INVESTIGATE HOW TO GET THE VUFORIA TO WORK A LITTLE BETTER ///////
-            dir direction = GetGlyphDirection(vuMark);
 
-            if      (direction == dir.LEFT)  { telemetry.addData("Placing cube left...",vuMark); }
-            else if (direction == dir.CENTER){ telemetry.addData("Placing cube center...", vuMark); }
-            else if (direction == dir.RIGHT) { telemetry.addData("Placing cube right...", vuMark); }
-            else if (direction == dir.ERROR) { telemetry.addData("Error occurred", vuMark); }
-            else                             { telemetry.addData("No response", vuMark); }
+            fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
+            bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
+            fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
+            bLeft = gamepad1.left_stick_y - gamepad1.right_stick_x + gamepad1.left_stick_x;
 
-            //fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
-            //bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
-            //fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
-            //bLeft = gamepad1.left_stick_y - gamepad1.right_stick_x + gamepad1.left_stick_x;
+            robot.frontleftDrive.setPower(fLeft);
+            robot.frontrightDrive.setPower(fRight);
+            robot.backleftDrive.setPower(bLeft);
+            robot.backrightDrive.setPower(bRight);
 
-            //robot.frontleftDrive.setPower(fLeft);
-            //robot.frontrightDrive.setPower(fRight);
-            //robot.backleftDrive.setPower(bLeft);
-            //robot.backrightDrive.setPower(bRight);
+
+            //RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
+            /*while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
+                //strafe or something
+                telemetry.addData("Searching...", vuMark);
+                telemetry.update();
+            }
+            */
+
+
+                    }
+        /* leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        */
+
+        }
+
+    public dir GetGlyphDirection (){
+        // put more of the vuforia stuff here
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
+        relicTrackables.activate();
+
+        if (vuMark == RelicRecoveryVuMark.LEFT) {
+            return dir.LEFT;
+        } else if (vuMark == RelicRecoveryVuMark.CENTER) {
+            return dir.CENTER;
+        } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            return dir.RIGHT;
+        } else {
+            return dir.ERROR;
         }
     }
-
-    public dir GetGlyphDirection (RelicRecoveryVuMark vuMark){
-        // put more of the vuforia stuff here
-        do {
-            telemetry.addData("Checking...",vuMark);
-            if (vuMark == RelicRecoveryVuMark.LEFT) {
-                return dir.LEFT;
-            } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                return dir.CENTER;
-            } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                return dir.RIGHT;
-            }
-            return dir.ERROR;
-        } while(vuMark != RelicRecoveryVuMark.LEFT && vuMark != RelicRecoveryVuMark.CENTER && vuMark != RelicRecoveryVuMark.RIGHT);
-    }
-
     public void PlaceCube ( dir glyphDirection){
         // change the state based on the input
         switch (glyphDirection) {
@@ -189,3 +194,6 @@ public class eaglebot_AutonomousMode extends LinearOpMode {
         ERROR
     }
 }
+
+
+

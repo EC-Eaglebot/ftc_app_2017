@@ -14,8 +14,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 
-@Autonomous(name="Red Team Right Stone", group="Competition")
-public class eaglebot_red_right extends LinearOpMode {
+@Autonomous(name="Red Team Right Stone JEWEL ONLY", group="Competition")
+public class auto_red_right extends LinearOpMode {
 
     // Declare OpMode members.
     HardwareClawbot     robot   = new HardwareClawbot();
@@ -23,7 +23,7 @@ public class eaglebot_red_right extends LinearOpMode {
 
 
 
-//this stuff gets the light sensor ready, taken from the sample SensorColor opMode
+//this stuff gets the light sensor ready, taken from the sample concept_SensorColor opMode
     //ColorSensor color_sensor;
     //float[] hsvValues = new float[3];
     //final float values[] = hsvValues;
@@ -38,6 +38,7 @@ public class eaglebot_red_right extends LinearOpMode {
        // double RED_FLOOR_THRESHOLD = 300;
         // double RED_CEILING_THRESHOLD = 60;
         double red_qualifier = 30;
+        double arm_down = .9;
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
@@ -50,15 +51,16 @@ public class eaglebot_red_right extends LinearOpMode {
         //robot.stopMoving();
         //runtime.reset();
 
-        //moves the arm to the down position and reads the
-        robot.arm.setPosition(.8);
-        // Read the sensor
-        //robot.color.red();   // Red channel value
-        //robot.color_sensor.green(); // Green channel value
-        //robot.color_sensor.blue();  // Blue channel value
+        //moves the arm to the down position
+        robot.arm.setPosition(.5);
+        //close the claw here before the robot ever moves
+        robot.closeClaws(runtime);
+        //pause for a small time to slow the arm down
+        sleep(500);
+        robot.arm.setPosition(arm_down);
 
-        //robot.color_sensor.alpha(); // Total luminosity
-        //robot.color_sensor.argb();  // Combined color value
+
+//read the sensor
     runtime.reset();
       while (runtime.seconds() < 2) {
             telemetry.addLine()
@@ -69,39 +71,30 @@ public class eaglebot_red_right extends LinearOpMode {
         }
 
 
-        // if blue
-       /* if (robot.color.red() < RED_FLOOR_THRESHOLD || robot.color.red() > RED_CEILING_THRESHOLD ){
-            robot.strafeLeft(.5,.2, runtime);
-            telemetry.addLine("BLUES CLUES");
-            telemetry.update();
-            sleep(3000);
-        } // if red
-        else {
-            robot.strafeRight(.5 , .2, runtime);
-            telemetry.addLine("REDRUM REDRUM");
-            telemetry.update();
-            sleep(3000);
-        } */
+        double power = .5;
+        double twitchtime = 2;
 
         // Phase I: Read jewel color, knock off correct one
         if (robot.color.red() < red_qualifier){
-            robot.strafeLeft(.5,.2, runtime);
+            robot.strafeLeft(power,twitchtime, runtime);
             telemetry.addLine("BLUES CLUES");
             telemetry.update();
-            sleep(3000);
+            sleep(2000);
         } // if red
         else {
-            robot.strafeRight(.5 , .2, runtime);
+            robot.strafeRight(power,twitchtime, runtime);
             telemetry.addLine("REDRUM REDRUM");
             telemetry.update();
-            sleep(3000);
+            sleep(2000);
         }
 
+        power = 1;
         // Phase II: Grab glyph, turn toward glyph wall, and move toward it
-        robot.closeClaws(runtime);
-        robot.forward(0.25,2,runtime);
-        robot.turnRight(runtime);
-        robot.forward(0.5,2.5,runtime);
+        //robot.closeClaws(runtime);
+        //robot.forward(power,2,runtime);
+        //robot.turnRight(runtime);
+        power = .25;
+        //robot.forward(power,2.5,runtime);
 
         // End
         robot.stopMoving();

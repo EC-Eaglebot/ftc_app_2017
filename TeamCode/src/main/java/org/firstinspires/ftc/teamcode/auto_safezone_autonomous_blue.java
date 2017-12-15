@@ -29,11 +29,19 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Hardware;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
 /**
@@ -50,9 +58,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 
-@Autonomous(name="Auto:Cube", group ="Test")
-@Disabled
-public class cube_autonomous extends LinearOpMode {
+@Autonomous(name="Safezone Blue:Left", group="Competition")
+public class auto_safezone_autonomous_blue extends LinearOpMode {
     static HardwareClawbot robot = new HardwareClawbot();
 
     // Declare OpMode members.
@@ -66,16 +73,20 @@ public class cube_autonomous extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-            //robot.turnRight(runtime);
-            //robot.arm.setPosition(robot.MID_SERVO);
-            robot.forward(.1,.5, runtime);
-            //robot.arm.setPosition(0);
+        double go = HardwareClawbot.standardSpeed;
 
 
+            runtime.reset();
+            telemetry.addData("Status", "Forward");
+            robot.forward(go, 1, runtime);
+            telemetry.addData("Status", "Turning");
+            robot.turnDegree(-90, runtime);
+            runtime.reset();
+            robot.stopMoving();
+
+        //}
             
             //pick up cube here
-        }
     }
 }
+

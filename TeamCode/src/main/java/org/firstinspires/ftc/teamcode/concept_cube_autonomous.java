@@ -29,10 +29,11 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 /**
@@ -49,8 +50,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  */
 
 
-@Autonomous(name="Safezone Blue:Right", group="Competition")
-public class safezone_autonomous_blue_right extends LinearOpMode {
+@Autonomous(name="Auto:Cube", group ="Test")
+@Disabled
+public class concept_cube_autonomous extends LinearOpMode {
     static HardwareClawbot robot = new HardwareClawbot();
 
     // Declare OpMode members.
@@ -64,26 +66,16 @@ public class safezone_autonomous_blue_right extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        double go = HardwareClawbot.standardSpeed;
-
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            runtime.reset();
-            telemetry.addData("Status", "Forward");
-            robot.forward(go, 1, runtime);
-            telemetry.addData("Status", "Turning");
-            robot.turnDegree(90, runtime);
-            runtime.reset();
-            telemetry.addData("Status", "Forward");
-            robot.forward(go, 1, runtime);
-            robot.stopMoving();
-            while (true){
-                //do nothing for rest of autonomous)
-            }
+            //robot.turnRight(runtime);
+            //robot.arm.setPosition(robot.MID_SERVO);
+            robot.forward(.1,.5, runtime);
+            //robot.arm.setPosition(0);
 
-        }
+
             
             //pick up cube here
+        }
     }
 }
-

@@ -23,7 +23,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Eaglebot: Corey", group="Test")
 @Disabled
-public class eaglebot_auto_Corey extends LinearOpMode {
+public class concept_eaglebot_auto_Corey extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareClawbot     robot   = new HardwareClawbot();

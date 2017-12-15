@@ -29,17 +29,10 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 /**
@@ -56,58 +49,44 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="Basic: Tele OpMode", group="TestBot")
-@Disabled
-public class eaglebot_no_motors extends LinearOpMode {
+@Autonomous(name="Encoder Test", group="Tests")
+public class concept_encoder_test extends LinearOpMode {
+    static HardwareClawbot robot = new HardwareClawbot();
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    VuforiaLocalizer vuforia;
+
 
     @Override
     public void runOpMode() {
-
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-
-        parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-
-        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-
-
+        robot.init(hardwareMap);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-            while (runtime.seconds() < 1) {
+        double go = HardwareClawbot.standardSpeed;
+        robot.frontleftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.frontrightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.backleftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.backrightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                //pick up cube here
 
-                RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-                while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
-                    //strafe or something
-                }
-                if (vuMark == RelicRecoveryVuMark.LEFT) {
-                    telemetry.addData("Key should be placed left", vuMark);
-                } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                    telemetry.addData("Key should be placed center", vuMark);
-                } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                    telemetry.addData("Key should be placed right", vuMark);
-                } else {
-                    telemetry.addData("VuMark not visible", vuMark);
-                }
-                telemetry.update();
-            }
+        runtime.reset();
+            telemetry.addData("Status", "Forward");
+            robot.frontleftDrive.setTargetPosition(100);
+            robot.frontrightDrive.setTargetPosition(100);
+            robot.backleftDrive.setTargetPosition(100);
+            robot.backrightDrive.setTargetPosition(100);
+            robot.frontleftDrive.setPower(.5);
+            robot.frontrightDrive.setPower(.5);
+            robot.backleftDrive.setPower(.5);
+            robot.backrightDrive.setPower(.5);
+            runtime.reset();
+            robot.stopMoving();
 
-        }
+        //}
+            
+            //pick up cube here
     }
 }
+

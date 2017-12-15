@@ -31,9 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -57,45 +55,61 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 
-@TeleOp(name="Basic:<>Tele OpMode", group="TestBot")
+@TeleOp(name="Vuforia Test", group="TestBot")
 @Disabled
-public class TestBot_Autonomous extends LinearOpMode {
+public class concept_vuforia_test extends LinearOpMode {
+    static sample_HardwareSampleBot robot       = new sample_HardwareSampleBot(); // use the class created to define a Pushbot's hardware
+    // could also use HardwarePushbotMatrix class.
+    double          clawOffset  = 0.0 ;                  // Servo mid position
+    final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
+
+    /*
+     * Code to run ONCE Bhen the driver hits INIT
+     */
 
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
+    static ElapsedTime runtime = new ElapsedTime();
+
     VuforiaLocalizer vuforia;
 
     @Override
     public void runOpMode() {
 
+        robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
-        parameters.vuforiaLicenseKey = "ATsODcD/////AAAAAVw2lR...d45oGpdljdOh5LuFB9nDNfckoxb8COxKSFX";
+        parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
 
         this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
 
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        runtime.reset();
+       //runtime.reset();
+
+
+        // above code is how to activate the VuForia camera tracking.
+        // *******
+        // MAKE SURE THIS IS NOT COMMENTED OUT!
+        // *******
 
         // run until the end of the match (driver presses STOP)
+        double fLeft = 0;
+        double fRight = 0;
+        double bLeft = 0;
+        double bRight = 0;
+
+
         while (opModeIsActive()) {
-            while (runtime.seconds() < 1) {
+            /* while (runtime.seconds() < 1) {
                 leftDrive.setPower(0.2);
                 rightDrive.setPower(0.2);
             }
@@ -103,27 +117,79 @@ public class TestBot_Autonomous extends LinearOpMode {
             rightDrive.setPower(0);
             runtime.reset();
 
-            //pick up cube here
 
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
+            //pick up cube here
+            */
+
+            relicTrackables.activate();
+    //********************
+    //test to see if this line is in the right place
+    //********************
+
+            fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
+            bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
+            fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
+            bLeft = gamepad1.left_stick_y - gamepad1.right_stick_x + gamepad1.left_stick_x;
+
+            robot.frontleftDrive.setPower(fLeft);
+            robot.frontrightDrive.setPower(fRight);
+            robot.backleftDrive.setPower(bLeft);
+            robot.backrightDrive.setPower(bRight);
+
+            /*while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
                 //strafe or something
+                telemetry.addData("Searching...", vuMark);
+                telemetry.update();
             }
+            */
             if (vuMark == RelicRecoveryVuMark.LEFT) {
                 telemetry.addData("Key should be placed left", vuMark);
-            }
-            else if (vuMark == RelicRecoveryVuMark.CENTER) {
+                PlaceCube(dir.LEFT);
+            } else if (vuMark == RelicRecoveryVuMark.CENTER) {
                 telemetry.addData("Key should be placed center", vuMark);
-            }
-            else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+                PlaceCube(dir.CENTER);
+            } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
                 telemetry.addData("Key should be placed right", vuMark);
-            }
-            else {
+                PlaceCube(dir.RIGHT);
+            } else {
                 telemetry.addData("VuMark not visible", vuMark);
             }
             telemetry.update();
+
         }
-        leftDrive.setPower(0);
+        /* leftDrive.setPower(0);
         rightDrive.setPower(0);
+        */
     }
+
+    public static void PlaceCube(dir glyphDirection){
+        // change the state based on the input
+        switch(glyphDirection) {
+            case LEFT:
+                // handle placing the cube into left position
+                robot.turnDegree(-90,runtime);
+                robot.stopMoving();
+                break;
+            case CENTER:
+                // handle placing the cube into the center position
+                robot.forward(10);
+                robot.stopMoving();
+
+                break;
+            case RIGHT:
+                // handle palcing the cube into the right position
+                robot.turnDegree(90,runtime);
+                robot.stopMoving();
+                break;
+        }
+    }
+    enum dir {
+        LEFT,
+        CENTER,
+        RIGHT
+    }
+
 }
+
+
+

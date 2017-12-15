@@ -21,12 +21,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Eaglebot: Gabe", group="Test")
+@Autonomous(name="Eaglebot: Bill", group="Test")
 @Disabled
-public class eaglebot_auto_Gabe extends LinearOpMode {
+public class concept_eaglebot_auto_Bill extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareSampleBot     robot   = new HardwareSampleBot();
+    sample_HardwareSampleBot robot   = new sample_HardwareSampleBot();
     private ElapsedTime     runtime = new ElapsedTime();
 
 
@@ -60,19 +60,17 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
 
         robot.stopMoving();
         runtime.reset();
-        while (runtime.seconds() < 8) {
+        while (opModeIsActive() && (runtime.seconds() < 8)) {
             telemetry.addData("Stopped", runtime.seconds());
             telemetry.update();
         }
-        robot.forward(10);
-        while (runtime.seconds() < 2) {
+        robot.forward(0.5);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 2)) {
             telemetry.addData("Moving Forward", runtime.seconds());
             telemetry.update();
         }
-        robot.turnDegree(10, runtime);
         robot.stopMoving();
-
-
 
         // END
 
@@ -84,6 +82,7 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
         sleep(1000);
     }
 }
+
 // TOOLBOX OF FUNCTIONS
 // *********************
 /*
@@ -96,10 +95,5 @@ public class eaglebot_auto_Gabe extends LinearOpMode {
     Determine how long the code has run:    runtime.seconds();
 
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 */
-
-
-
 
