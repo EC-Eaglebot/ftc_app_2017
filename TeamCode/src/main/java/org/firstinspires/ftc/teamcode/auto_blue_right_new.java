@@ -5,13 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="Spin Test", group="Test")
-public class auto_red_spin_test extends LinearOpMode {
+@Autonomous(name="Blue Team Right Stone JEWEL ONLY with edit", group="Competition")
+public class auto_blue_right_new extends LinearOpMode {
 
     // Declare OpMode members.
     HardwareClawbot     robot   = new HardwareClawbot();
     private ElapsedTime     runtime = new ElapsedTime();
-
+    private boolean MoveOn = false;
 
 
 //this stuff gets the light sensor ready, taken from the sample concept_SensorColor opMode
@@ -29,7 +29,7 @@ public class auto_red_spin_test extends LinearOpMode {
        // double RED_FLOOR_THRESHOLD = 300;
         // double RED_CEILING_THRESHOLD = 60;
         double red_qualifier = 30;
-        double arm_down = .9;
+        double arm_down = .85;
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
@@ -39,61 +39,71 @@ public class auto_red_spin_test extends LinearOpMode {
         waitForStart();
 
 
-        robot.stopMoving();
-        runtime.reset();
-        robot.spinLeft(.5,2,runtime);
-        robot.stopMoving();
-        sleep(500);
-        robot.spinRight(.5,2,runtime);
-        robot.stopMoving();
-        sleep(500);
+        //robot.stopMoving();
+        //runtime.reset();
 
         //moves the arm to the down position
-        //robot.arm.setPosition(.5);
+        robot.arm.setPosition(.5);
         //close the claw here before the robot ever moves
-        //robot.closeClaws(runtime);
+        robot.closeClaws(runtime);
         //pause for a small time to slow the arm down
-
-        //robot.arm.setPosition(arm_down);
-
+        sleep(1000);
+        robot.arm.setPosition(.6);
+        sleep(1000);
+        robot.arm.setPosition(.7);
+        sleep(1000);
+        robot.arm.setPosition(.8);
+        sleep(1000);
+        robot.arm.setPosition(arm_down);
+        MoveOn = true;
 
 //read the sensor
     runtime.reset();
-      while (runtime.seconds() < 2) {
+      while (runtime.seconds() < 3 && MoveOn == true) {
             telemetry.addLine()
                     .addData("R", "%d", robot.color.red())
                     .addData("G", "%d", robot.color.green())
                     .addData("B", "%d", robot.color.blue());
             telemetry.update();
+          if (robot.color.red() < red_qualifier){
+              telemetry.addLine("BLUES CLUES");
+              telemetry.update();
+          } // if red
+          else {
+              telemetry.addLine("REDRUM REDRUM");
+              telemetry.update();
+          }
         }
 
 
         double power = .5;
-        double twitchtime = 2;
+        double twitchtime = 1.5;
 
         // Phase I: Read jewel color, knock off correct one
         if (robot.color.red() < red_qualifier){
-            robot.strafeLeft(power,twitchtime, runtime);
+            robot.strafeRight(power,twitchtime, runtime);
             telemetry.addLine("BLUES CLUES");
             telemetry.update();
             sleep(2000);
         } // if red
         else {
-            robot.strafeRight(power,twitchtime, runtime);
+            robot.strafeLeft(power,twitchtime, runtime);
             telemetry.addLine("REDRUM REDRUM");
             telemetry.update();
             sleep(2000);
         }
+
 
         power = 1;
         // Phase II: Grab glyph, turn toward glyph wall, and move toward it
         //robot.closeClaws(runtime);
         //robot.forward(power,2,runtime);
         //robot.turnRight(runtime);
-        power = .25;
+        //power = .25;
         //robot.forward(power,2.5,runtime);
 
         // End
+        robot.arm.setPosition(.2);
         robot.stopMoving();
 
 

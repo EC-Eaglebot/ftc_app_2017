@@ -96,7 +96,7 @@ public class teleop_half_power extends LinearOpMode {
         double liftUp;
 
         while (opModeIsActive()) {
-
+            robot.arm.setPosition(.25);
 
             fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
             bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;

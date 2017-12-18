@@ -100,6 +100,8 @@ public class teleop_2_driver_mode extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+            robot.arm.setPosition(.25);
+
             fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
             bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
             fLeft = gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;

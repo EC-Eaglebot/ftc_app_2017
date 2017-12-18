@@ -29,7 +29,7 @@ public class auto_blue_right extends LinearOpMode {
        // double RED_FLOOR_THRESHOLD = 300;
         // double RED_CEILING_THRESHOLD = 60;
         double red_qualifier = 30;
-        double arm_down = .75;
+        double arm_down = .9;
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
@@ -43,7 +43,7 @@ public class auto_blue_right extends LinearOpMode {
         //runtime.reset();
 
         //moves the arm to the down position
-        robot.arm.setPosition(arm_down-.1);
+        robot.arm.setPosition(.5);
         //close the claw here before the robot ever moves
         robot.closeClaws(runtime);
         //pause for a small time to slow the arm down
@@ -53,31 +53,40 @@ public class auto_blue_right extends LinearOpMode {
 
 //read the sensor
     runtime.reset();
-      while (runtime.seconds() < 2) {
+      while (runtime.seconds() < 3) {
             telemetry.addLine()
                     .addData("R", "%d", robot.color.red())
                     .addData("G", "%d", robot.color.green())
                     .addData("B", "%d", robot.color.blue());
             telemetry.update();
+          if (robot.color.red() < red_qualifier){
+              telemetry.addLine("BLUES CLUES");
+              telemetry.update();
+          } // if red
+          else {
+              telemetry.addLine("REDRUM REDRUM");
+              telemetry.update();
+          }
         }
 
 
         double power = .5;
-        double twitchtime = 1;
+        double twitchtime = 1.5;
 
         // Phase I: Read jewel color, knock off correct one
-        if (robot.color.red() > red_qualifier){
-            robot.strafeLeft(power,twitchtime, runtime);
-            telemetry.addLine("REDRUM REDRUM");
-            telemetry.update();
-            sleep(2000);
-        } // if red
-        else {
+        if (robot.color.red() < red_qualifier){
             robot.strafeRight(power,twitchtime, runtime);
             telemetry.addLine("BLUES CLUES");
             telemetry.update();
             sleep(2000);
+        } // if red
+        else {
+            robot.strafeLeft(power,twitchtime, runtime);
+            telemetry.addLine("REDRUM REDRUM");
+            telemetry.update();
+            sleep(2000);
         }
+
 
         power = 1;
         // Phase II: Grab glyph, turn toward glyph wall, and move toward it
@@ -88,6 +97,7 @@ public class auto_blue_right extends LinearOpMode {
         //robot.forward(power,2.5,runtime);
 
         // End
+        robot.arm.setPosition(.2);
         robot.stopMoving();
 
 

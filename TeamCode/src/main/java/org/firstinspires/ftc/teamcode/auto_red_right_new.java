@@ -1,26 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.NormalizedRGBA;
-import com.qualcomm.robotcore.hardware.SwitchableLight;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-
-
-@Autonomous(name="Red Team Right Stone JEWEL ONLY", group="Competition")
-public class auto_red_right extends LinearOpMode {
+@Autonomous(name="Red Team Right Stone JEWEL ONLY with edit", group="Competition")
+public class auto_red_right_new extends LinearOpMode {
 
     // Declare OpMode members.
     HardwareClawbot     robot   = new HardwareClawbot();
     private ElapsedTime     runtime = new ElapsedTime();
-    private Boolean MoveOn = false;
+    private boolean MoveOn = false;
 
 
 
@@ -39,7 +30,7 @@ public class auto_red_right extends LinearOpMode {
        // double RED_FLOOR_THRESHOLD = 300;
         // double RED_CEILING_THRESHOLD = 60;
         double red_qualifier = 30;
-        double arm_down = .9;
+        double arm_down = .85;
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
@@ -52,18 +43,24 @@ public class auto_red_right extends LinearOpMode {
         //robot.stopMoving();
         //runtime.reset();
 
-        //moves the arm to the down position
         robot.arm.setPosition(.5);
         //close the claw here before the robot ever moves
         robot.closeClaws(runtime);
         //pause for a small time to slow the arm down
-        sleep(500);
+        sleep(1000);
+        robot.arm.setPosition(.6);
+        sleep(1000);
+        robot.arm.setPosition(.7);
+        sleep(1000);
+        robot.arm.setPosition(.8);
+        sleep(1000);
         robot.arm.setPosition(arm_down);
+        MoveOn = true;
 
 
 //read the sensor
     runtime.reset();
-      while (runtime.seconds() < 3 && MoveOn == true) {
+      while (runtime.seconds() < 3) {
             telemetry.addLine()
                     .addData("R", "%d", robot.color.red())
                     .addData("G", "%d", robot.color.green())

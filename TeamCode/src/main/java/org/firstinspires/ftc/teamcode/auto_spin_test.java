@@ -1,26 +1,16 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.NormalizedRGBA;
-import com.qualcomm.robotcore.hardware.SwitchableLight;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-
-
-@Autonomous(name="Red Team Right Stone JEWEL ONLY", group="Competition")
-public class auto_red_right extends LinearOpMode {
+@Autonomous(name="Spin Test", group="Test")
+public class auto_spin_test extends LinearOpMode {
 
     // Declare OpMode members.
     HardwareClawbot     robot   = new HardwareClawbot();
     private ElapsedTime     runtime = new ElapsedTime();
-    private Boolean MoveOn = false;
 
 
 
@@ -49,21 +39,27 @@ public class auto_red_right extends LinearOpMode {
         waitForStart();
 
 
-        //robot.stopMoving();
-        //runtime.reset();
+        robot.stopMoving();
+        runtime.reset();
+        robot.spinLeft(.25,2,runtime);
+        robot.stopMoving();
+        sleep(500);
+        robot.spinRight(.25,2,runtime);
+        robot.stopMoving();
+        sleep(500);
 
         //moves the arm to the down position
-        robot.arm.setPosition(.5);
+        //robot.arm.setPosition(.5);
         //close the claw here before the robot ever moves
-        robot.closeClaws(runtime);
+        //robot.closeClaws(runtime);
         //pause for a small time to slow the arm down
-        sleep(500);
-        robot.arm.setPosition(arm_down);
+
+        //robot.arm.setPosition(arm_down);
 
 
 //read the sensor
     runtime.reset();
-      while (runtime.seconds() < 3 && MoveOn == true) {
+      while (runtime.seconds() < 2) {
             telemetry.addLine()
                     .addData("R", "%d", robot.color.red())
                     .addData("G", "%d", robot.color.green())
@@ -73,7 +69,7 @@ public class auto_red_right extends LinearOpMode {
 
 
         double power = .5;
-        double twitchtime = 1.5;
+        double twitchtime = 2;
 
         // Phase I: Read jewel color, knock off correct one
         if (robot.color.red() < red_qualifier){
@@ -98,7 +94,6 @@ public class auto_red_right extends LinearOpMode {
         //robot.forward(power,2.5,runtime);
 
         // End
-        robot.arm.setPosition(.2);
         robot.stopMoving();
 
 
