@@ -4,39 +4,50 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 
-@Autonomous(name="Blue Team Right Stone JEWEL ONLY with edit", group="Competition")
+@Autonomous(name="Blue Team Right Stone JEWEL and KEY", group="Competition")
 public class auto_blue_right_new extends LinearOpMode {
 
     // Declare OpMode members.
     HardwareClawbot     robot   = new HardwareClawbot();
     private ElapsedTime     runtime = new ElapsedTime();
     private boolean MoveOn = false;
+    double go = HardwareClawbot.standardSpeed;
+    VuforiaLocalizer vuforia;
+    //HardwareClawbot.dir direction = robot.GetGlyphDirection(robot.cameraMonitorViewId);
 
 
-//this stuff gets the light sensor ready, taken from the sample concept_SensorColor opMode
-    //ColorSensor color_sensor;
-    //float[] hsvValues = new float[3];
-    //final float values[] = hsvValues;
-
-    // Get a reference to our sensor object.
-    //color_sensor = hardwareMap.ColorSensor.get("color_sensor");
-    
     @Override
     public void runOpMode() {
 
-        robot.init(hardwareMap);
-       // double RED_FLOOR_THRESHOLD = 300;
-        // double RED_CEILING_THRESHOLD = 60;
-        double red_qualifier = 30;
-        double arm_down = .85;
+
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
 
-
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        robot.init(hardwareMap);VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
+        relicTrackables.activate();
+
+
+        double red_qualifier = 30;
+        double arm_down = .85;
 
 
         //robot.stopMoving();
@@ -59,7 +70,7 @@ public class auto_blue_right_new extends LinearOpMode {
 
 //read the sensor
     runtime.reset();
-      while (runtime.seconds() < 3 && MoveOn == true) {
+      while (runtime.seconds() < 3 && MoveOn) {
             telemetry.addLine()
                     .addData("R", "%d", robot.color.red())
                     .addData("G", "%d", robot.color.green())
@@ -84,14 +95,47 @@ public class auto_blue_right_new extends LinearOpMode {
             robot.strafeRight(power,twitchtime, runtime);
             telemetry.addLine("BLUES CLUES");
             telemetry.update();
-            sleep(2000);
+            sleep(10000);
         } // if red
         else {
             robot.strafeLeft(power,twitchtime, runtime);
             telemetry.addLine("REDRUM REDRUM");
             telemetry.update();
-            sleep(2000);
+            sleep(1000);
         }
+
+        robot.arm.setPosition(.5);
+
+        while (vuMark != RelicRecoveryVuMark.CENTER && vuMark != RelicRecoveryVuMark.RIGHT && vuMark != RelicRecoveryVuMark.LEFT) {
+            telemetry.addLine("Key still unknown");
+            telemetry.update();
+        }
+        if (vuMark == RelicRecoveryVuMark.LEFT) {
+            telemetry.addLine("Key is LEFT");
+        }
+        else if (vuMark == RelicRecoveryVuMark.CENTER) {
+            telemetry.addLine("Key is CENTER");
+        }
+        else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            telemetry.addLine("Key is RIGHT");
+        }
+        telemetry.update();
+
+        /*
+        while (robot.direction == HardwareClawbot.dir.ERROR) {
+            robot.GetGlyphDirection();
+            telemetry.addData("Key", "still unknown");
+        }
+        if (robot.direction == HardwareClawbot.dir.LEFT) {
+            telemetry.addData("Key", "is LEFT");
+        }
+        else if (robot.direction == HardwareClawbot.dir.CENTER) {
+            telemetry.addData("Key", "is CENTER");
+        }
+        else if (robot.direction == HardwareClawbot.dir.RIGHT) {
+            telemetry.addData("Key", "is RIGHT");
+        }
+*/
 
 
         power = 1;

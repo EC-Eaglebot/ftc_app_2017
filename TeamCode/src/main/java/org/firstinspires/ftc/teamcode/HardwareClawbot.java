@@ -38,6 +38,12 @@ import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
 /**
  * This is NOT an opmode.
  *
@@ -70,6 +76,15 @@ public class HardwareClawbot
     public static final double MID_SERVO       =  0.5 ;
     public static final double CLAW_SPEED  = 0.02 ;
     public static final double standardSpeed = 0.5;
+
+    public VuforiaLocalizer vuforia;
+    public enum dir {
+        LEFT,
+        CENTER,
+        RIGHT,
+        ERROR
+    }
+
     //public static final double ARM_UP_POWER    =  0.45 ;
     //public static final double ARM_DOWN_POWER  = -0.45 ;
 
@@ -97,6 +112,7 @@ public class HardwareClawbot
         rightClaw      = hwMap.get(Servo.class,"claw_right");
         leftClaw       = hwMap.get(Servo.class,"claw_left");
         color = hwMap.colorSensor.get("color_sensor");
+
 
 
         frontleftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
@@ -128,10 +144,12 @@ public class HardwareClawbot
         //leftClaw.setPosition(MID_SERVO);
         //rightClaw.setPosition(MID_SERVO);
         //arm.setPosition(MID_SERVO);
+
     }
 
     // Function "forward"
     // make robot move forward at specified speed
+
     void forward(double speed, double secondsToRun, ElapsedTime runtime) {
         double end = runtime.seconds() + secondsToRun;
         frontleftDrive.setPower(-speed);
@@ -285,6 +303,29 @@ public class HardwareClawbot
         double endTime = runtime.seconds() + secondsToWait;
         while (runtime.seconds() < endTime) { }
     }
+    /*public dir GetGlyphDirection (int cameraMonitorViewId) {
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
+        relicTrackables.activate();
+
+        if (vuMark == RelicRecoveryVuMark.LEFT) {
+            return dir.LEFT;
+        } else if (vuMark == RelicRecoveryVuMark.CENTER) {
+            return dir.CENTER;
+        } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            return dir.RIGHT;
+        } else {
+            return dir.ERROR;
+        }
+    } */
 
 }
 
