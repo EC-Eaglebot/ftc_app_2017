@@ -48,6 +48,7 @@ public class auto_blue_right_new extends LinearOpMode {
 
         double red_qualifier = 30;
         double arm_down = .85;
+        String key_location = "unknown";
 
 
         //robot.stopMoving();
@@ -70,6 +71,25 @@ public class auto_blue_right_new extends LinearOpMode {
 
 //read the sensor
     runtime.reset();
+        if (vuMark != RelicRecoveryVuMark.CENTER && vuMark != RelicRecoveryVuMark.RIGHT && vuMark != RelicRecoveryVuMark.LEFT) {
+            telemetry.addLine("Key still unknown");
+            telemetry.update();
+            key_location = "unknown";
+        }
+        if (vuMark == RelicRecoveryVuMark.LEFT) {
+            telemetry.addLine("Key is LEFT");
+            key_location = "left";
+        }
+        else if (vuMark == RelicRecoveryVuMark.CENTER) {
+            telemetry.addLine("Key is CENTER");
+            key_location = "center";
+        }
+        else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            telemetry.addLine("Key is RIGHT");
+            key_location = "right";
+
+        }
+        sleep(500);
       while (runtime.seconds() < 3 && MoveOn) {
             telemetry.addLine()
                     .addData("R", "%d", robot.color.red())
@@ -106,19 +126,7 @@ public class auto_blue_right_new extends LinearOpMode {
 
         robot.arm.setPosition(.5);
 
-        while (vuMark != RelicRecoveryVuMark.CENTER && vuMark != RelicRecoveryVuMark.RIGHT && vuMark != RelicRecoveryVuMark.LEFT) {
-            telemetry.addLine("Key still unknown");
-            telemetry.update();
-        }
-        if (vuMark == RelicRecoveryVuMark.LEFT) {
-            telemetry.addLine("Key is LEFT");
-        }
-        else if (vuMark == RelicRecoveryVuMark.CENTER) {
-            telemetry.addLine("Key is CENTER");
-        }
-        else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-            telemetry.addLine("Key is RIGHT");
-        }
+
         telemetry.update();
 
         /*
