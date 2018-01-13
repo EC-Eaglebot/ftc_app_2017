@@ -68,6 +68,7 @@ public class HardwareClawbot
     public DcMotor  backleftDrive   = null;
     public DcMotor  backrightDrive  = null;
     public DcMotor  liftDrive       = null;
+    public DcMotor center = null;
     public Servo arm = null;
     public Servo rightClaw = null;
     public Servo leftClaw = null;
@@ -107,6 +108,7 @@ public class HardwareClawbot
         backleftDrive   = hwMap.get(DcMotor.class, "backleft_drive");
         backrightDrive  = hwMap.get(DcMotor.class, "backright_drive");
         liftDrive       = hwMap.get(DcMotor.class, "lift");
+        center = hwMap.get(DcMotor.class, "center");
 
         arm            = hwMap.get(Servo.class,"arm");
         rightClaw      = hwMap.get(Servo.class,"claw_right");
@@ -126,6 +128,7 @@ public class HardwareClawbot
         backleftDrive.setPower(0);
         backrightDrive.setPower(0);
         liftDrive.setPower(0);
+        center.setPower(0);
         //leftClaw.setPower(0);
         //rightClaw.setPower(0);
 
@@ -136,6 +139,7 @@ public class HardwareClawbot
         backleftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backrightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        center.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //frontleftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //frontrightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //backleftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

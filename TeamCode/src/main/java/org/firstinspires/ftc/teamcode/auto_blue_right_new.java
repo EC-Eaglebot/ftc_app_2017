@@ -33,7 +33,8 @@ public class auto_blue_right_new extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        robot.init(hardwareMap);VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        robot.init(hardwareMap);
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
 
@@ -78,14 +79,17 @@ public class auto_blue_right_new extends LinearOpMode {
         }
         if (vuMark == RelicRecoveryVuMark.LEFT) {
             telemetry.addLine("Key is LEFT");
+            telemetry.update();
             key_location = "left";
         }
         else if (vuMark == RelicRecoveryVuMark.CENTER) {
             telemetry.addLine("Key is CENTER");
+            telemetry.update();
             key_location = "center";
         }
         else if (vuMark == RelicRecoveryVuMark.RIGHT) {
             telemetry.addLine("Key is RIGHT");
+            telemetry.update();
             key_location = "right";
 
         }
