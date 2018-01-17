@@ -72,6 +72,7 @@ public class auto_blue_right_new extends LinearOpMode {
 
 //read the sensor
     runtime.reset();
+    while (runtime.seconds() < 2) {
         if (vuMark != RelicRecoveryVuMark.CENTER && vuMark != RelicRecoveryVuMark.RIGHT && vuMark != RelicRecoveryVuMark.LEFT) {
             telemetry.addLine("Key still unknown");
             telemetry.update();
@@ -92,8 +93,9 @@ public class auto_blue_right_new extends LinearOpMode {
             telemetry.update();
             key_location = "right";
 
-        }
+        } }
         sleep(500);
+      runtime.reset();
       while (runtime.seconds() < 3 && MoveOn) {
             telemetry.addLine()
                     .addData("R", "%d", robot.color.red())
@@ -127,15 +129,15 @@ public class auto_blue_right_new extends LinearOpMode {
             telemetry.update();
             sleep(1000);
         }
-        if (key_location == "left") {
+        if (key_location.equals("left")) {
             robot.forward(0.2, 1.5, runtime);
             robot.turnRight(runtime);
         }
-        else if (key_location == "right") {
+        else if (key_location.equals("center")) {
             robot.forward(0.2, 1.0, runtime);
             robot.turnRight(runtime);
         }
-        else if (key_location == "center") {
+        else if (key_location.equals("right")) {
             robot.forward(0.2, 0.7, runtime);
             robot.turnRight(runtime);
 
