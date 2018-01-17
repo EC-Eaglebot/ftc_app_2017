@@ -151,23 +151,16 @@ public class teleop_2_driver_mode extends LinearOpMode {
 
 
             //driver2 shifts power
-            if (gamepad2.y && !shiftup) shiftup = true;
-            else if (!gamepad2.y) shiftup = false;
-            if (gamepad2.a && !shiftdown) shiftdown = true;
-            else if (!gamepad2.a) shiftdown = false;
+          if (gamepad2.left_bumper) power = .5;
+          else if (gamepad2.right_bumper) power = 1.0;
+          else power = .75;
 
-            if (shiftup)
-                {
-                    if (power < 1.0) power += .25;
-                    shiftup = false;
 
-                }
-            if (shiftdown)
-            {
-                    if (power > 0.0) power -= .25;
-                    shiftdown = true;
-
-            }
+          if (gamepad2.right_trigger > 0.1) {
+              robot.center.setPower(0.5);
+          }
+          else if (gamepad2.left_trigger > 0.1) robot.center.setPower(-0.5);
+          else robot.center.setPower(0);
 
             //else
             //    robot.arm.setPosition(robot.MID_SERVO - .5);

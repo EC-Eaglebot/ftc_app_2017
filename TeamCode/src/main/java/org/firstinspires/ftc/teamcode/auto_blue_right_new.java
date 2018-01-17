@@ -127,6 +127,19 @@ public class auto_blue_right_new extends LinearOpMode {
             telemetry.update();
             sleep(1000);
         }
+        if (key_location == "left") {
+            robot.forward(0.2, 1.5, runtime);
+            robot.turnRight(runtime);
+        }
+        else if (key_location == "right") {
+            robot.forward(0.2, 1.0, runtime);
+            robot.turnRight(runtime);
+        }
+        else if (key_location == "center") {
+            robot.forward(0.2, 0.7, runtime);
+            robot.turnRight(runtime);
+
+        }
 
         robot.arm.setPosition(.5);
 

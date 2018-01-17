@@ -160,6 +160,7 @@ public class HardwareClawbot
         frontrightDrive.setPower(-speed);
         backrightDrive.setPower(-speed);
         backleftDrive.setPower(-speed);
+        center.setPower(-speed);
 
         while (end > runtime.seconds()){ } // wait
 
