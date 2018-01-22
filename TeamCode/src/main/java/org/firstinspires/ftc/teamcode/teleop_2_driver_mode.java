@@ -100,7 +100,8 @@ public class teleop_2_driver_mode extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            robot.arm.setPosition(.25);
+            robot.arm.setPosition(.2);
+            robot.paddle.setPosition(0.42);
 
             fRight = gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
             bRight = gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
@@ -117,15 +118,20 @@ public class teleop_2_driver_mode extends LinearOpMode {
 
             // Use gamepad left & right Bumpers to open and close the claw
             if (gamepad1.right_bumper)
-            {clawOffset_right += CLAW_SPEED;
-                clawOffset_left += CLAW_SPEED;}
-            else if (gamepad1.left_bumper)
-            {clawOffset_right -= CLAW_SPEED;
-                clawOffset_left -= CLAW_SPEED;}
-            if (gamepad2.right_bumper)
+            {
                 clawOffset_right += CLAW_SPEED;
-            else if (gamepad2.left_bumper)
-                clawOffset_left -= CLAW_SPEED;
+                if (clawOffset_left < 1) {
+                    clawOffset_left += CLAW_SPEED;
+                }
+            }
+            else if (gamepad1.left_bumper)
+            {
+                clawOffset_right -= CLAW_SPEED;
+                if (clawOffset_left > -1) {
+                    clawOffset_left -= CLAW_SPEED;
+                }
+            }
+
 
             // Move both servos to new position.  Assume servos are mirror image of each other.
             //clawOffset = Range.clip(clawOffset, -0.5, 0.5);

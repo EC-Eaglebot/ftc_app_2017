@@ -72,6 +72,7 @@ public class HardwareClawbot
     public Servo arm = null;
     public Servo rightClaw = null;
     public Servo leftClaw = null;
+    public Servo paddle = null;
     public ColorSensor color;
 
     public static final double MID_SERVO       =  0.5 ;
@@ -113,6 +114,7 @@ public class HardwareClawbot
         arm            = hwMap.get(Servo.class,"arm");
         rightClaw      = hwMap.get(Servo.class,"claw_right");
         leftClaw       = hwMap.get(Servo.class,"claw_left");
+        paddle         = hwMap.get(Servo.class,"paddle");
         color = hwMap.colorSensor.get("color_sensor");
 
 
@@ -160,7 +162,7 @@ public class HardwareClawbot
         frontrightDrive.setPower(-speed);
         backrightDrive.setPower(-speed);
         backleftDrive.setPower(-speed);
-        center.setPower(-speed);
+        //center.setPower(-speed);
 
         while (end > runtime.seconds()){ } // wait
 

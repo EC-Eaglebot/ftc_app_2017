@@ -29,8 +29,10 @@ public class auto_red_right_new extends LinearOpMode {
         robot.init(hardwareMap);
        // double RED_FLOOR_THRESHOLD = 300;
         // double RED_CEILING_THRESHOLD = 60;
-        double red_qualifier = 30;
+        double red_qualifier = 150;
         double arm_down = .85;
+        double arm_middlepos = 0.42;
+
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
@@ -42,8 +44,8 @@ public class auto_red_right_new extends LinearOpMode {
 
         //robot.stopMoving();
         //runtime.reset();
-
-        robot.arm.setPosition(.5);
+        robot.paddle.setPosition(arm_middlepos);
+        robot.arm.setPosition(0);
         //close the claw here before the robot ever moves
         robot.closeClaws(runtime);
         //pause for a small time to slow the arm down
@@ -60,7 +62,7 @@ public class auto_red_right_new extends LinearOpMode {
 
 //read the sensor
     runtime.reset();
-      while (runtime.seconds() < 3) {
+      while (runtime.seconds() < 3 && MoveOn) {
             telemetry.addLine()
                     .addData("R", "%d", robot.color.red())
                     .addData("G", "%d", robot.color.green())
@@ -73,19 +75,23 @@ public class auto_red_right_new extends LinearOpMode {
         double twitchtime = 1.5;
 
         // Phase I: Read jewel color, knock off correct one
+        // if blue
         if (robot.color.red() < red_qualifier){
-            robot.strafeLeft(power,twitchtime, runtime);
-            telemetry.addLine("BLUES CLUES");
+            robot.paddle.setPosition(1.0);
+            telemetry.addLine("BIG BLUE");
             telemetry.update();
             sleep(2000);
         } // if red
         else {
-            robot.strafeRight(power,twitchtime, runtime);
-            telemetry.addLine("REDRUM REDRUM");
+            robot.paddle.setPosition(-1.0);
+            telemetry.addLine("RED DEAD REDEMPTION");
             telemetry.update();
             sleep(2000);
         }
-
+        robot.paddle.setPosition(arm_middlepos);
+        robot.arm.setPosition(0.5);
+        robot.strafeRight(0.5, 1.3, runtime);
+        robot.arm.setPosition(0.2);
         power = 1;
         // Phase II: Grab glyph, turn toward glyph wall, and move toward it
         //robot.closeClaws(runtime);

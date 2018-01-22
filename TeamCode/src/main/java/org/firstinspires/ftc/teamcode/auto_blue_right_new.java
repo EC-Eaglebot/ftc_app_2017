@@ -34,7 +34,9 @@ public class auto_blue_right_new extends LinearOpMode {
         waitForStart();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         robot.init(hardwareMap);
+        /*   for VuForia
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
         parameters.vuforiaLicenseKey = "Ae0+l9f/////AAAAGSNVpVpt80F4p61FNmwiQSo+nRXp2HcThjA01Uak76AtdklG5SIElxoWuKmM04feEVJp1w1Bgmwq9ttjFbioiq30D/uRCucs90BxX6mAeMrjpCTWv8ySTyQw8Gse/t0OmnQzYlgMe+YJotsbVkiKWJtylDnXP7Lj621oWCH1CQx1vd6fqZ/CVP3AFj37Br/gxTXoyimhrgef4q0MIV4oo0MMDaRkhYEzfKY7qJcopSMKzsoHDFyjnnecUqDnYZAlU9AA/DI8UtnYJ7MoCnmZKS6xir8p6rTSem5Pm3613mBZc40JzVXWdsbtvbR9mfsG+Id1ZA4+q+to/uJCn8RHeWZRYdf7J3Uj6yPAw5SDk+ge";
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
 
@@ -45,15 +47,19 @@ public class auto_blue_right_new extends LinearOpMode {
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
         relicTrackables.activate();
+        */
 
-
-        double red_qualifier = 30;
-        double arm_down = .85;
+        double red_qualifier = 150;
+        double arm_down = .8;
+        double arm_middlepos = 0.42;
         String key_location = "unknown";
 
 
         //robot.stopMoving();
         //runtime.reset();
+
+        //moves the paddle to initial middle position
+        robot.paddle.setPosition(arm_middlepos);
 
         //moves the arm to the down position
         robot.arm.setPosition(.5);
@@ -65,11 +71,11 @@ public class auto_blue_right_new extends LinearOpMode {
         sleep(1000);
         robot.arm.setPosition(.7);
         sleep(1000);
-        robot.arm.setPosition(.8);
+        robot.arm.setPosition(.75);
         sleep(1000);
         robot.arm.setPosition(arm_down);
         MoveOn = true;
-
+/*
 //read the sensor
     runtime.reset();
     while (runtime.seconds() < 2) {
@@ -95,6 +101,8 @@ public class auto_blue_right_new extends LinearOpMode {
 
         } }
         sleep(500);
+
+ */
       runtime.reset();
       while (runtime.seconds() < 3 && MoveOn) {
             telemetry.addLine()
@@ -112,23 +120,24 @@ public class auto_blue_right_new extends LinearOpMode {
           }
         }
 
-
         double power = .5;
         double twitchtime = 1.5;
 
         // Phase I: Read jewel color, knock off correct one
+        // if blue
         if (robot.color.red() < red_qualifier){
-            robot.strafeRight(power,twitchtime, runtime);
+            robot.paddle.setPosition(-1.0);
             telemetry.addLine("BLUES CLUES");
             telemetry.update();
             sleep(10000);
         } // if red
         else {
-            robot.strafeLeft(power,twitchtime, runtime);
+            robot.paddle.setPosition(1.0);
             telemetry.addLine("REDRUM REDRUM");
             telemetry.update();
             sleep(1000);
         }
+        /*
         if (key_location.equals("left")) {
             robot.forward(0.2, 1.5, runtime);
             robot.turnRight(runtime);
@@ -141,12 +150,18 @@ public class auto_blue_right_new extends LinearOpMode {
             robot.forward(0.2, 0.7, runtime);
             robot.turnRight(runtime);
 
-        }
+        }*/
 
+        robot.paddle.setPosition(arm_middlepos);
         robot.arm.setPosition(.5);
 
-
         telemetry.update();
+
+
+        //robot.forward(0.5,2,runtime);
+        //robot.strafeLeft(0.5,2,runtime);
+
+        robot.strafeLeft(0.5,1.3,runtime);
 
         /*
         while (robot.direction == HardwareClawbot.dir.ERROR) {
@@ -165,7 +180,7 @@ public class auto_blue_right_new extends LinearOpMode {
 */
 
 
-        power = 1;
+        //power = 1;
         // Phase II: Grab glyph, turn toward glyph wall, and move toward it
         //robot.closeClaws(runtime);
         //robot.forward(power,2,runtime);
