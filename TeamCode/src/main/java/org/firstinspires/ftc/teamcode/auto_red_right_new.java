@@ -90,8 +90,9 @@ public class auto_red_right_new extends LinearOpMode {
         }
         robot.paddle.setPosition(arm_middlepos);
         robot.arm.setPosition(0.5);
-        robot.strafeRight(0.5, 1.3, runtime);
         robot.arm.setPosition(0.2);
+        robot.turnDegree(-10, runtime);
+        robot.backward(0.2, 1, runtime);
         power = 1;
         // Phase II: Grab glyph, turn toward glyph wall, and move toward it
         //robot.closeClaws(runtime);
