@@ -135,7 +135,7 @@ public class auto_blue_right_new extends LinearOpMode {
             robot.paddle.setPosition(1.0);
             telemetry.addLine("REDRUM REDRUM");
             telemetry.update();
-            sleep(1000);
+            sleep(300);
         }
         /*
         if (key_location.equals("left")) {
@@ -158,7 +158,7 @@ public class auto_blue_right_new extends LinearOpMode {
         runtime.reset();
         robot.forward(0.32, 1.5, runtime);
         runtime.reset();
-        robot.spinLeft(0.2, 0.9, runtime);
+        robot.spinLeft(0.2, 0.8, runtime);
         runtime.reset();
         robot.forward(0.2, 1, runtime);
         runtime.reset();
@@ -172,7 +172,7 @@ public class auto_blue_right_new extends LinearOpMode {
         runtime.reset();
         robot.openClaws(runtime);
         robot.forward(0.01, 0.5, runtime);
-        robot.backward(0.1, 0.9, runtime);
+        robot.backward(0.1, 1.5, runtime);
         //runtime.reset();
         //robot.forward(0.1, 1, runtime);
 
