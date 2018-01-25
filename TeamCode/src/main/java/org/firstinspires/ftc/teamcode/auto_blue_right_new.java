@@ -154,6 +154,30 @@ public class auto_blue_right_new extends LinearOpMode {
 
         robot.paddle.setPosition(arm_middlepos);
         robot.arm.setPosition(.5);
+        robot.liftDrive.setPower(0.3);
+        runtime.reset();
+        robot.forward(0.32, 1.5, runtime);
+        runtime.reset();
+        robot.spinLeft(0.2, 0.9, runtime);
+        runtime.reset();
+        robot.forward(0.2, 1, runtime);
+        runtime.reset();
+        robot.spinRight(0.05, 0.1, runtime);
+        runtime.reset();
+        robot.forward(0.2, 1, runtime);
+        runtime.reset();
+       // robot.spinRight(0.05, 0.01, runtime);
+        // runtime.reset();
+        robot.forward(0.2, 0.8, runtime);
+        runtime.reset();
+        robot.openClaws(runtime);
+        robot.forward(0.01, 0.5, runtime);
+        robot.backward(0.1, 0.9, runtime);
+        //runtime.reset();
+        //robot.forward(0.1, 1, runtime);
+
+       // robot.turnleft(runtime);
+
 
         telemetry.update();
 
@@ -161,7 +185,7 @@ public class auto_blue_right_new extends LinearOpMode {
         //robot.forward(0.5,2,runtime);
         //robot.strafeLeft(0.5,2,runtime);
 
-        robot.strafeLeft(0.5,1.3,runtime);
+      //  robot.strafeLeft(0.5,1.3,runtime);
 
         /*
         while (robot.direction == HardwareClawbot.dir.ERROR) {
