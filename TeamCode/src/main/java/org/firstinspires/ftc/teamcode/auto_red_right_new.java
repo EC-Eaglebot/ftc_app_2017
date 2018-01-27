@@ -12,7 +12,7 @@ public class auto_red_right_new extends LinearOpMode {
     HardwareClawbot     robot   = new HardwareClawbot();
     private ElapsedTime     runtime = new ElapsedTime();
     private boolean MoveOn = false;
-
+    private int stop = 500;
 
 
 //this stuff gets the light sensor ready, taken from the sample concept_SensorColor opMode
@@ -91,8 +91,33 @@ public class auto_red_right_new extends LinearOpMode {
         robot.paddle.setPosition(arm_middlepos);
         robot.arm.setPosition(0.5);
         robot.arm.setPosition(0.2);
-        robot.turnDegree(-10, runtime);
-        robot.backward(0.2, 1, runtime);
+        robot.liftDrive.setPower(0.3);
+       // runtime.reset();
+        robot.forward(0.2, 1.2, runtime);
+        sleep(stop);
+        //runtime.reset();
+        robot.spinRight(0.2, 1.1, runtime);
+        sleep(stop);
+        //runtime.reset();
+        robot.forward(0.2, 2, runtime);
+        sleep(stop);
+        //runtime.reset();
+       /* robot.spinRight(0.2, 1, runtime);
+        //sleep(stop);
+        //runtime.reset();
+        robot.forward(0.2, 1, runtime);
+        sleep(stop);
+        //runtime.reset();
+        robot.spinRight(0.05, 0.01, runtime);
+        sleep(stop);
+
+        // runtime.reset();
+        robot.forward(0.2, 0.8, runtime);
+        sleep(stop); */
+        //runtime.reset();
+        robot.openClaws(runtime);
+       //robot.forward(0.01, 0.5, runtime);
+        robot.backward(0.1, 1.5, runtime);
         power = 1;
         // Phase II: Grab glyph, turn toward glyph wall, and move toward it
         //robot.closeClaws(runtime);
