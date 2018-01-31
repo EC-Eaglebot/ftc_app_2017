@@ -18,6 +18,7 @@ public class auto_blue_right_new extends LinearOpMode {
     private ElapsedTime     runtime = new ElapsedTime();
     private boolean MoveOn = false;
     double go = HardwareClawbot.standardSpeed;
+    private int stop = 500;
     VuforiaLocalizer vuforia;
     //HardwareClawbot.dir direction = robot.GetGlyphDirection(robot.cameraMonitorViewId);
 
@@ -104,7 +105,7 @@ public class auto_blue_right_new extends LinearOpMode {
 
  */
       runtime.reset();
-      while (runtime.seconds() < 3 && MoveOn) {
+      while (runtime.seconds() < 2 && MoveOn) {
             telemetry.addLine()
                     .addData("R", "%d", robot.color.red())
                     .addData("G", "%d", robot.color.green())
@@ -137,6 +138,23 @@ public class auto_blue_right_new extends LinearOpMode {
             telemetry.update();
             sleep(300);
         }
+        robot.paddle.setPosition(arm_middlepos);
+        robot.arm.setPosition(0.5);
+        robot.arm.setPosition(0.2);
+        robot.liftDrive.setPower(0.3);
+        // runtime.reset();
+        robot.forward(0.2, 1.5, runtime);
+        sleep(stop);
+        //runtime.reset();
+        robot.spinLeft(0.2, 0.95, runtime);
+        sleep(stop);
+        //runtime.reset();
+        robot.forward(0.2, 1, runtime);
+        sleep(stop);
+        robot.spinRight(0.1, 0.5, runtime);
+        sleep(stop);
+        robot.forward(0.2, 0.5, runtime);
+        sleep(stop);
         /*
         if (key_location.equals("left")) {
             robot.forward(0.2, 1.5, runtime);
@@ -152,7 +170,7 @@ public class auto_blue_right_new extends LinearOpMode {
 
         }*/
 
-        robot.paddle.setPosition(arm_middlepos);
+       /* code from the old wheel robot.paddle.setPosition(arm_middlepos);
         robot.arm.setPosition(.5);
         robot.liftDrive.setPower(0.3);
         runtime.reset();
@@ -166,9 +184,10 @@ public class auto_blue_right_new extends LinearOpMode {
         runtime.reset();
         robot.forward(0.2, 1, runtime);
         runtime.reset();
+        */
        // robot.spinRight(0.05, 0.01, runtime);
         // runtime.reset();
-        robot.forward(0.2, 0.8, runtime);
+        robot.forward(0.1, 0.8, runtime);
         runtime.reset();
         robot.openClaws(runtime);
         robot.forward(0.01, 0.5, runtime);
