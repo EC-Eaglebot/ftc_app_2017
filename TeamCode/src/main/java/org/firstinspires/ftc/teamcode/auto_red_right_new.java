@@ -29,7 +29,7 @@ public class auto_red_right_new extends LinearOpMode {
         robot.init(hardwareMap);
        // double RED_FLOOR_THRESHOLD = 300;
         // double RED_CEILING_THRESHOLD = 60;
-        double red_qualifier = 150;
+        double red_qualifier = 140;
         double arm_down = .85;
         double arm_middlepos = 0.42;
 
@@ -93,15 +93,19 @@ public class auto_red_right_new extends LinearOpMode {
         robot.arm.setPosition(0.2);
         robot.liftDrive.setPower(0.3);
        // runtime.reset();
-        robot.forward(0.2, 1.2, runtime);
+       /* robot.forward(0.2, 1.4, runtime);
         sleep(stop);
         //runtime.reset();
         robot.spinRight(0.2, 1.1, runtime);
         sleep(stop);
         //runtime.reset();
-        robot.forward(0.2, 2, runtime);
+        robot.forward(0.2, 1, runtime);
         sleep(stop);
-        //runtime.reset();
+        robot.spinRight(0.2, 1,runtime);
+        sleep(stop);
+        robot.forward(0.2,1, runtime);
+        //runtime.reset();*/
+
        /* robot.spinRight(0.2, 1, runtime);
         //sleep(stop);
         //runtime.reset();
@@ -115,9 +119,13 @@ public class auto_red_right_new extends LinearOpMode {
         robot.forward(0.2, 0.8, runtime);
         sleep(stop); */
         //runtime.reset();
-        robot.openClaws(runtime);
+
+       /* robot.openClaws(runtime); */
+
        //robot.forward(0.01, 0.5, runtime);
-        robot.backward(0.1, 1.5, runtime);
+
+       /* robot.backward(0.1, 1.5, runtime); */
+
         power = 1;
         // Phase II: Grab glyph, turn toward glyph wall, and move toward it
         //robot.closeClaws(runtime);

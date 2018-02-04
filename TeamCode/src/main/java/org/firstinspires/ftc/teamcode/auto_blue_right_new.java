@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 
-@Autonomous(name="Blue Team Right Stone JEWEL and KEY", group="Competition")
+@Autonomous(name="Blue Team Right Stone JEWEL and BLOCK", group="Competition")
 public class auto_blue_right_new extends LinearOpMode {
 
     // Declare OpMode members.
@@ -50,7 +50,7 @@ public class auto_blue_right_new extends LinearOpMode {
         relicTrackables.activate();
         */
 
-        double red_qualifier = 150;
+        double red_qualifier = 140;
         double arm_down = .8;
         double arm_middlepos = 0.42;
         String key_location = "unknown";
@@ -143,16 +143,15 @@ public class auto_blue_right_new extends LinearOpMode {
         robot.arm.setPosition(0.2);
         robot.liftDrive.setPower(0.3);
         // runtime.reset();
-        robot.forward(0.2, 1.5, runtime);
+        robot.forward(0.2, 1.6, runtime);
         sleep(stop);
         //runtime.reset();
-        robot.spinLeft(0.2, 0.95, runtime);
+        robot.spinRight(0.2, 0.45, runtime);
         sleep(stop);
         //runtime.reset();
         robot.forward(0.2, 1, runtime);
         sleep(stop);
-        robot.spinRight(0.1, 0.5, runtime);
-        sleep(stop);
+        //sleep(stop);
         robot.forward(0.2, 0.5, runtime);
         sleep(stop);
         /*
@@ -191,7 +190,7 @@ public class auto_blue_right_new extends LinearOpMode {
         runtime.reset();
         robot.openClaws(runtime);
         robot.forward(0.01, 0.5, runtime);
-        robot.backward(0.1, 1.5, runtime);
+        robot.backward(0.1, .8, runtime);
         //runtime.reset();
         //robot.forward(0.1, 1, runtime);
 
