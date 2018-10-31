@@ -96,6 +96,7 @@ public class concept_eaglebot_auto_Gabe extends LinearOpMode {
     Determine how long the code has run:    runtime.seconds();
 
 
+<<<<<<< Updated upstream:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/concept_eaglebot_auto_Gabe.java
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 */
@@ -103,3 +104,21 @@ public class concept_eaglebot_auto_Gabe extends LinearOpMode {
 
 
 
+=======
+*/
+    }
+            void forward(double speed) {
+            frontleftDrive.setPower(speed);
+            frontrightDrive.setPower(speed);
+            backrightDrive.setPower(speed);
+            backleftDrive.setPower(speed);
+            }
+            void stopMoving() {
+            frontleftDrive.setPower(0);
+            frontrightDrive.setPower(0);
+            backrightDrive.setPower(0);
+            backleftDrive.setPower(0);
+            }
+
+            }
+>>>>>>> Stashed changes:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/eaglebot_auto_Jeremy.java

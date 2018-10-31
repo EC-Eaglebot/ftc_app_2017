@@ -108,10 +108,20 @@ public class sample_HardwareSampleBot
         //leftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
+<<<<<<< Updated upstream:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/sample_HardwareSampleBot.java
         //leftClaw  = hwMap.get(Servo.class, "left_hand");
         //rightClaw = hwMap.get(Servo.class, "right_hand");
         //leftClaw.setPosition(MID_SERVO);
         //rightClaw.setPosition(MID_SERVO);
+=======
+        leftClaw  = hwMap.get(Servo.class, "left_hand");
+        rightClaw = hwMap.get(Servo.class, "right_hand");
+        leftClaw.setPosition(MID_SERVO);
+        rightClaw.setPosition(MID_SERVO);
+
+
+
+>>>>>>> Stashed changes:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/HardwareSampleBot.java
 
     }
 
@@ -150,10 +160,14 @@ public class sample_HardwareSampleBot
 
     }
 
+<<<<<<< Updated upstream:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/sample_HardwareSampleBot.java
 
     // Function "turnDegree"
     // make the robot turn a specified degree
 
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/HardwareSampleBot.java
     void turnDegree(double degree, ElapsedTime runtime){
         double speed = frontrightDrive.getPower();
         double endTime = (degree / speed) + runtime.seconds();
@@ -178,6 +192,9 @@ public class sample_HardwareSampleBot
             backleftDrive.setPower(speed);
         }
     }
+=======
+}
+>>>>>>> Stashed changes
 
     void turnAround(ElapsedTime runtime) {
         turnDegree(180, runtime);
